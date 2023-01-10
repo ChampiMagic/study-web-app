@@ -1,0 +1,22 @@
+.high_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("../../assets/scattered-forcefields.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom center, 50%, 50%;
+}
+
+.title_container {
+    border: 6px solid #000;
+    padding: 1em;
+    background-color: rgba(0, 0, 0, 0.13);
+}
+
+.title_container h1 {
+    font-size: 6em;
+    color: #000;
+}
