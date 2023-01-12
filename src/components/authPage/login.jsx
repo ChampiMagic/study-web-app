@@ -19,10 +19,14 @@ import styles from './auth.module.css'
 
 // Others
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 export default function Login () {
   // State used to render error messages from the backend
   const [statusMessage, setStatusMessage] = useState('')
+
+  // Used to redirect the user
+  const navigate = useNavigate()
 
   // Used to make changes to a global state
   const dispatch = useDispatch()
@@ -40,11 +44,13 @@ export default function Login () {
       const response = await axios.post('/login', values)
 
       // eslint-disable-next-line no-undef
-      localStorage.setItem('token', response.data.token)
+      localStorage.setItem('token', response.data.body.token)
 
-      dispatch(saveUser(response.data.user))
+      dispatch(saveUser(response.data.body.user))
 
       reset()
+
+      navigate('/home')
     } catch (error) {
       if (error.response) setStatusMessage(error.response.data.message)
       else setStatusMessage(error.message)

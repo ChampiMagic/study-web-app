@@ -15,7 +15,7 @@ const PrivateAuthRoute = () => {
   const token = localStorage.getItem('token')
 
   // If user is authenticate we let him continue
-  if (!useIsEmpty(user) && token) {
+  if ((!user || !useIsEmpty(user)) && token) {
     return <Outlet />
   }
 
