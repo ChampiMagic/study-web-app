@@ -1,0 +1,13 @@
+.left_container {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.btn_user:focus {
+    outline: none;
+}
+
+.btn_popUp {
+    align-self: center;
+}
