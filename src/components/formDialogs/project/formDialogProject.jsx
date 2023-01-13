@@ -1,15 +1,24 @@
+// React imports
 import React, { useState } from 'react'
 
-import axios from 'axios'
+// Formik imports
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
-import HeaderConstructor from '../../utils/constructors/headerConstructor'
+// Redux imports
 import { useDispatch } from 'react-redux'
-import { updateUser } from '../../redux/slices/userSlice'
+import { updateUser } from '../../../redux/slices/userSlice'
+
+// Material UI imports
 import { Button, CircularProgress, Dialog, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
-import { createProjectValidationSchema } from '../../utils/validationSchemas/project.js'
+// Validator Schema imports
+import { createProjectValidationSchema } from '../../../utils/validationSchemas/project.js'
 
+// Other imports
+import axios from 'axios'
+import HeaderConstructor from '../../../utils/constructors/headerConstructor'
+
+// Css imports
 import styles from './formDialogProject.module.css'
 
 export default function FormDialogProject () {

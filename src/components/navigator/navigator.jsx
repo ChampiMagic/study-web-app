@@ -7,8 +7,8 @@ import { AppBar, IconButton, Menu, MenuItem, Toolbar } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 
 // Components imports
-import FormDialogProject from '../formDialogs/formDialogProject'
-// import FormDialogCard from '../formDialogs/formDialogCard'
+import FormDialogProject from '../formDialogs/project/formDialogProject'
+// import FormDialogCard from '../formDialogs/card/formDialogCard'
 
 // Redux imports
 import { useDispatch } from 'react-redux'
