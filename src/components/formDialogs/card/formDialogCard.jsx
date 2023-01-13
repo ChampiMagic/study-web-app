@@ -1,18 +1,27 @@
+// React imports
 import React, { useState } from 'react'
 
-import axios from 'axios'
+// Formik imports
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
-import HeaderConstructor from '../../utils/constructors/headerConstructor'
+// Redux imports
 import { useDispatch } from 'react-redux'
-import { updateUser } from '../../redux/slices/userSlice'
+import { updateUser } from '../../../redux/slices/userSlice'
+
+// Material UI imports
 import { Button, CircularProgress, Dialog, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
-import { createProjectValidationSchema } from '../../utils/validationSchemas/project.js'
+// Validator Schema imports
+import { createCardValidationSchema } from '../../../utils/validationSchemas/card.js'
 
-import styles from './formDialogProject.module.css'
+// Other imports
+import axios from 'axios'
+import HeaderConstructor from '../../../utils/constructors/headerConstructor'
 
-export default function FormDialogProject () {
+// Css imports
+import styles from './formDialogCard.module.css'
+
+export default function FormDialogProject ({ projectId }) {
   // State used to render error messages from the backend
   const [statusMessage, setStatusMessage] = useState('')
 
@@ -24,8 +33,8 @@ export default function FormDialogProject () {
 
   // Formik form initial values
   const initialValues = {
-    name: '',
-    tag: ''
+    question: '',
+    answer: ''
   }
 
   function handleClose () {
@@ -40,7 +49,7 @@ export default function FormDialogProject () {
     try {
       const config = HeaderConstructor()
 
-      const response = await axios.post('/create-project', values, config)
+      const response = await axios.post('/create-card', { ...values, projectId }, config)
 
       dispatch(updateUser(response.data.body.user))
 
@@ -48,7 +57,7 @@ export default function FormDialogProject () {
 
       handleClose()
     } catch (error) {
-      if (error.response) setStatusMessage(error.response.data.message)
+      if (error.response.data.message) setStatusMessage(error.response.data.message)
       else setStatusMessage(error.message)
     }
   }
@@ -56,7 +65,7 @@ export default function FormDialogProject () {
   return (
     <>
       <Button variant='outlined' color='primary' onClick={handleClickOpen}>
-        Create Project
+        Create Card
       </Button>
       <Dialog
         open={open}
@@ -64,26 +73,26 @@ export default function FormDialogProject () {
         aria-labelledby='form-dialog-title'
       >
 
-        <DialogTitle id='form-dialog-title'>Create a Project</DialogTitle>
+        <DialogTitle id='form-dialog-title'>Create a Question Card</DialogTitle>
         <DialogContent>
-          <DialogContentText>Please insert a name and tag</DialogContentText>
+          <DialogContentText>Please write a question and answer</DialogContentText>
           <Formik
             initialValues={initialValues}
-            validationSchema={() => createProjectValidationSchema}
+            validationSchema={() => createCardValidationSchema}
             onSubmit={async (values, { resetForm }) => await handleSubmit(values, resetForm)}
           >
             {({ errors, isSubmitting }) => (
               <Form className={styles.form}>
 
                 <div>
-                  <label htmlFor='name'>Project Name</label>
-                  <Field type='text' id='name' name='name' />
-                  <ErrorMessage name='name' component={() => (<p className={styles.error}>{errors.name}</p>)} />
+                  <label htmlFor='question'>Card Question</label>
+                  <Field type='text' id='question' name='question' />
+                  <ErrorMessage name='question' component={() => (<p className={styles.error}>{errors.question}</p>)} />
                 </div>
                 <div>
-                  <label htmlFor='tag'>Tag</label>
-                  <Field type='text' id='tag' name='tag' />
-                  <ErrorMessage name='tag' component={() => (<p className={styles.error}>{errors.tag}</p>)} />
+                  <label htmlFor='answer'>Card Answer</label>
+                  <Field type='text' id='answer' name='answer' />
+                  <ErrorMessage name='answer' component={() => (<p className={styles.error}>{errors.answer}</p>)} />
                 </div>
 
                 {isSubmitting
