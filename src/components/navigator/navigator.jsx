@@ -7,8 +7,8 @@ import { AppBar, IconButton, Menu, MenuItem, Toolbar } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 
 // Components imports
-// import FormDialogProject from '../formDialogs/formDialogProject' FormDialog in progress...
-// import FormDialogCard from '../formDialogs/formDialogCard' FormDialog in progress...
+import FormDialogProject from '../formDialogs/formDialogProject'
+// import FormDialogCard from '../formDialogs/formDialogCard'
 
 // Redux imports
 import { useDispatch } from 'react-redux'
@@ -46,8 +46,8 @@ export default function Navigator ({ dialogType }) {
             <MenuIcon />
           </IconButton>
 
-          {/* Logic for pop up, FormDialog is in progress... for the moment there is no button */}
-          {/* dialogType ? <FormDialogProject className={styles.btn_popUp} /> : <FormDialogCard className={styles.btn_popUp} /> */}
+          {/* <FormDialogCard className={styles.btn_popUp} /> */}
+          {dialogType ? <FormDialogProject className={styles.btn_popUp} /> : null}
 
         </div>
         <div>
