@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react'
 
 // Material UI imports
-import { Box } from '@mui/material'
+import { Box, Pagination } from '@mui/material'
+import { Stack } from '@mui/system'
 
 // Components imports
 import ProjectCard from '../ProyectCard/projectCard.jsx'
@@ -42,6 +43,9 @@ export default function ProjectsContainer () {
           <ProjectCard key={p._id} id={p._id} name={p.name} tag={p.tag} />
         ))}
       </Box>
+      <Stack spacing={2} className={styles.pagination_container}>
+        <Pagination count={totalPages} onChange={(e, p) => getProjects(p)} variant='outlined' />
+      </Stack>
     </Box>
   )
 }
