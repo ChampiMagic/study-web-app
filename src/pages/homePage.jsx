@@ -1,5 +1,6 @@
 // react imports
 import React from 'react'
+import ProjectsContainer from '../components/homePage/projectsContainer'
 
 // Components imports
 import Navigator from '../components/navigator/navigator'
@@ -11,7 +12,7 @@ export default function HomePage () {
   return (
     <div className={styles.high_container}>
       <Navigator dialogType={1} />
-
+      <ProjectsContainer />
     </div>
   )
 }
