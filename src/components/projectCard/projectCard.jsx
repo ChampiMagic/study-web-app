@@ -1,9 +1,9 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import styles from './proyectCard.module.css'
+import styles from './projectCard.module.css'
 import { Card, Typography, CardContent, CardActions } from '@mui/material'
 
-export default function ProyectCard ({ id, name, tag }) {
+export default function ProjectCard ({ id, name, tag }) {
   const navigate = useNavigate()
 
   const handleSubmit = (id) => {
