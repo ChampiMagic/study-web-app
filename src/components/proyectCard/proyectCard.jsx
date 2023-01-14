@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import styles from './proyectCard.module.css'
 import { Card, Typography, CardContent, CardActions } from '@mui/material'
 
-export default function ProyectCard ({ _id, name, tag }) {
+export default function ProyectCard ({ id, name, tag }) {
   const navigate = useNavigate()
 
   const handleSubmit = (id) => {
@@ -21,7 +21,7 @@ export default function ProyectCard ({ _id, name, tag }) {
           </div>
         </CardContent>
         <CardActions className={styles.button_container}>
-          <button className={styles.button} onClick={() => handleSubmit(_id)}>
+          <button className={styles.button} onClick={() => handleSubmit(id)}>
             Ver
           </button>
         </CardActions>
