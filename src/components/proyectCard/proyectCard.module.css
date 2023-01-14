@@ -1,0 +1,32 @@
+.tag_container {
+    display: flex;
+    justify-content: left;
+}
+
+.tag {
+    border-color: rgb(147, 144, 144);
+    border-style: solid;
+    border-radius: 8px;
+    border-width: 0.1rem;
+    padding: 2%;
+    width: fit-content;
+    text-align: center;
+}
+
+.button_container {
+    display: flex;
+    justify-content: right;
+}
+
+.button {
+    background-color: rgb(108, 108, 108);
+    transition: all 500ms ease;
+    margin-left: 0.4rem;
+    padding: 2% 10%;
+}
+
+.button:hover {
+    background-color: transparent;
+    color: black;
+    transition: all 500ms ease;
+}
