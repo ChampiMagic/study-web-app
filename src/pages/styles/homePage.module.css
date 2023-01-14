@@ -5,4 +5,10 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: bottom center, 50%, 50%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 5em repeat(4, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    
 }

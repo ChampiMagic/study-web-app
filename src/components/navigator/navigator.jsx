@@ -33,7 +33,7 @@ export default function Navigator ({ dialogType }) {
   }
 
   return (
-    <AppBar position='static' className={styles.app_bar} sx={{ bgcolor: 'rgba(0, 0, 0, 0.614)', height: '5em', display: 'flex', justifyContent: 'center' }}>
+    <AppBar position='static' className={styles.app_bar} sx={{ bgcolor: 'rgba(0, 0, 0, 0.614)', display: 'flex', justifyContent: 'center' }}>
       <Toolbar>
         <div className={styles.left_container}>
           <IconButton

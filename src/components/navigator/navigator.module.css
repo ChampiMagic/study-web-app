@@ -1,3 +1,7 @@
+.app_bar {
+    grid-area: 1 / 1 / 2 / 6;
+}
+
 .left_container {
     display: flex;
     align-items: center;
