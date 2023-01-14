@@ -6,7 +6,7 @@ import { Box, Pagination } from '@mui/material'
 import { Stack } from '@mui/system'
 
 // Components imports
-import ProjectCard from '../ProyectCard/projectCard.jsx'
+import ProjectCard from '../projectCard/projectCard.jsx'
 
 // Others imports
 import HeaderConstructor from '../../utils/constructors/headerConstructor.js'
