@@ -5,6 +5,10 @@ import * as yup from 'yup'
 export const registerValidationSchema = yup.object().shape({
   username: yup
     .string()
+    .required('Username is requiered'),
+  email: yup
+    .string()
+    .email('Please insert a valid email')
     .required('E-mail is requiered'),
   password: yup
     .string()
