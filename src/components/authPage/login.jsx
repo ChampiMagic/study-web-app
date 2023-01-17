@@ -33,7 +33,7 @@ export default function Login () {
 
   // Formik form initial values
   const initialValues = {
-    username: '',
+    email: '',
     password: ''
   }
 
@@ -68,9 +68,9 @@ export default function Login () {
           <Form className={styles.form}>
 
             <div>
-              <label htmlFor='username'>Username</label>
-              <Field type='text' id='username' name='username' />
-              <ErrorMessage name='username' component={() => (<p className={styles.error}>{errors.username}</p>)} />
+              <label htmlFor='email'>E-mail</label>
+              <Field type='text' id='email' name='email' />
+              <ErrorMessage name='email' component={() => (<p className={styles.error}>{errors.email}</p>)} />
             </div>
             <div>
               <label htmlFor='password'>Password</label>

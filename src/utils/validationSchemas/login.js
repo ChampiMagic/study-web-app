@@ -3,9 +3,10 @@ import * as yup from 'yup'
 // Validation scheme used by Formik
 
 export const loginValidationSchema = yup.object().shape({
-  username: yup
+  email: yup
     .string()
-    .required('username is requiered'),
+    .email('Must be a valid email')
+    .required('E-mail is requiered'),
   password: yup
     .string()
     .min(5, 'Too short!')
