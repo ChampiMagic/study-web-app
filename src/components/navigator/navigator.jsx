@@ -9,6 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 // Components imports
 import FormDialogProject from '../formDialogs/project/formDialogProject'
 import FormDialogCard from '../formDialogs/card/formDialogCard'
+import SearchBar from './SearchBar'
 
 // Redux imports
 import { useDispatch } from 'react-redux'
@@ -47,7 +48,7 @@ export default function Navigator ({ dialogType }) {
           </IconButton>
 
           {dialogType ? <FormDialogProject className={styles.btn_popUp} /> : <FormDialogCard className={styles.btn_popUp} />}
-
+          <SearchBar isProjectSearchBar={1} />
         </div>
         <div>
           <IconButton

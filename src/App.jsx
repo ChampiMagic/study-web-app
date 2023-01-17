@@ -22,9 +22,9 @@ export default function App () {
         <Route path='/' element={<AuthPage />} />
 
         {/* Only authenticated users can access */}
-        <Route element={<PrivateAuthRoute />}>
-          <Route path='/home' element={<HomePage />} />
-        </Route>
+        {/* <Route element={<PrivateAuthRoute />}> SACAR ESTO A LA HORA DE HACER COMMIT */}
+        <Route path='/home' element={<HomePage />} />
+        {/* </Route> */}
 
         {/* If not page found, we redirect to the 404 page */}
         <Route path='*' element={<NotFoundPage />} />
