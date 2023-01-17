@@ -34,6 +34,7 @@ export default function Register () {
   // Formik form initial values
   const initialValues = {
     username: '',
+    email: '',
     password: '',
     passwordConfirmation: ''
   }
@@ -42,7 +43,7 @@ export default function Register () {
     setStatusMessage('')
 
     try {
-      const response = await axios.post('/register', { username: values.username, password: values.password })
+      const response = await axios.post('/register', { username: values.username, password: values.password, email: values.email })
 
       // eslint-disable-next-line no-undef
       localStorage.setItem('token', response.data.body.token)
@@ -71,6 +72,11 @@ export default function Register () {
               <label htmlFor='username'>Username</label>
               <Field type='text' id='username' name='username' />
               <ErrorMessage name='username' component={() => (<p className={styles.error}>{errors.username}</p>)} />
+            </div>
+            <div>
+              <label htmlFor='email'>E-mail</label>
+              <Field type='text' id='email' name='email' />
+              <ErrorMessage name='email' component={() => (<p className={styles.error}>{errors.email}</p>)} />
             </div>
             <div>
               <label htmlFor='password'>Password</label>
