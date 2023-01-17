@@ -8,7 +8,7 @@ export const registerValidationSchema = yup.object().shape({
     .required('Username is requiered'),
   email: yup
     .string()
-    .email('Must be a valid email')
+    .email('Please insert a valid email')
     .required('E-mail is requiered'),
   password: yup
     .string()
