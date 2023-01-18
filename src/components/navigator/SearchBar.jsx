@@ -1,12 +1,10 @@
 // react imports
 import { React, useState } from 'react'
 
-import { ThemeProvider, createTheme } from '@mui/material/styles'
-
-// Assets imports
+// Assets import
 import searchIcon from '../../assets/bx-search.svg'
 
-// Css imports
+// Css import
 import styles from './navigator.module.css'
 
 // Formik imports
@@ -24,35 +22,20 @@ export default function SearchBar ({ isProjectSearchBar }) {
 
   const handleSubmit = async ({ searchValue }, reset) => {
     try {
-      const response = isProjectSearchBar
-        ? await axios.get('/projectsByName', {
-          params: {
-            name: searchValue
-          }
-        })
-        : await axios.get('/cardsByName', {
-          params: {
-            name: searchValue
-          }
-        })
+      const URL = isProjectSearchBar ? 'proyectsByName route here' : 'cardsByName route here' // TODO!!
+      const response = await axios.get(URL, {
+        params: {
+          name: searchValue
+        }
+      })
+      console.log(response)
+      // TODO Send response to searchBar globalState here!
       reset()
     } catch (error) {
       if (error.response) setStatusMessage(error.response.data.message)
       else setStatusMessage(error.message)
     }
   }
-
-  const theme = createTheme({
-    components: {
-      TextField: {
-        stylesOverrides: {
-          root: {
-            color: 'white'
-          }
-        }
-      }
-    }
-  })
 
   return (
     <>
@@ -73,6 +56,7 @@ export default function SearchBar ({ isProjectSearchBar }) {
           <button type='submit' className={styles.searchBarButton}>
             <img src={searchIcon} alt='searchBar logo' />
           </button>
+          {statusMessage ? <p className={styles.statusError}>{statusMessage}</p> : null}
         </Form>
       </Formik>
     </>

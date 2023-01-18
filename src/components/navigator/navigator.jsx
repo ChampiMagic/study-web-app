@@ -48,7 +48,7 @@ export default function Navigator ({ dialogType }) {
           </IconButton>
 
           {dialogType ? <FormDialogProject className={styles.btn_popUp} /> : <FormDialogCard className={styles.btn_popUp} />}
-          <SearchBar isProjectSearchBar={1} />
+          <SearchBar isProjectSearchBar={!false} />
         </div>
         <div>
           <IconButton
