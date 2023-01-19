@@ -18,7 +18,7 @@ export default function Navigator ({ dialogType }) {
     <AppBar position='static' className={styles.app_bar} sx={{ bgcolor: 'rgba(0, 0, 0, 0.614)', display: 'flex', justifyContent: 'center' }}>
       <Toolbar>
         <div className={styles.left_container}>
-          <TemporaryDrawer />
+          <TemporaryDrawer type={dialogType} />
 
           {dialogType ? <FormDialogProject className={styles.btn_popUp} /> : <FormDialogCard className={styles.btn_popUp} />}
 
