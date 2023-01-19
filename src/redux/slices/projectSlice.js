@@ -6,21 +6,28 @@ const initialState = {
   totalPages: 0
 }
 
-export const userController = createSlice({
-  name: 'userController',
+export const projectController = createSlice({
+  name: 'projectController',
   initialState,
   reducers: {
-    updateProjects: (state, payload) => {
-      state.projects = [payload.projects] // Chequear
-      state.totalPages = payload.totalPages // Preguntar
+    newProjects: (state, action) => {
+      state.projects = action.payload.projects
+      state.totalPages = action.payload.totalPages
+    },
+    updateProjects: (state, action) => {
+      state.projects = [...action.payload.projects, ...state.projects]
+      state.totalPages = action.payload.totalPages ?? state.totalPages
     },
     deleteProjects: (state) => {
       state.projects = []
       state.totalPages = 0
+    },
+    updateTotalPages: (state, action) => {
+      state.totalPages = state.projects.length / (action.payload.limit ?? 8)
     }
   }
 })
 
-export const { updateProjects, deleteProjects } = userController.actions
+export const { newProjects, updateProjects, deleteProjects, updateTotalPages } = projectController.actions
 
-export default userController.reducer
+export default projectController.reducer

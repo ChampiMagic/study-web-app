@@ -1,6 +1,10 @@
 // react imports
 import { React, useState } from 'react'
 
+// Redux imports
+import { useDispatch } from 'react-redux'
+import { newProjects } from '../../redux/slices/projectSlice.js'
+
 // @mui imports
 import SearchIcon from '@mui/icons-material/Search'
 import IconButton from '@mui/material/IconButton'
@@ -16,6 +20,8 @@ import axios from 'axios'
 import HeaderConstructor from '../../utils/constructors/headerConstructor'
 
 export default function SearchBar ({ isProjectSearchBar }) {
+  const dispatch = useDispatch()
+
   const [statusMessage, setStatusMessage] = useState('')
 
   const initialValue = {
@@ -26,11 +32,12 @@ export default function SearchBar ({ isProjectSearchBar }) {
     try {
       const myHeader = HeaderConstructor()
       const URL = isProjectSearchBar
-        ? 'proyectsByName with params route here'
-        : 'cardsByName with params route here' // TODO!!
+        ? `/projects/${searchValue}`
+        : `/cards/${searchValue}`
       const response = await axios.get(URL, myHeader)
       console.log(response)
-      // TODO Send response to searchBar globalState here!
+
+      dispatch(newProjects(response.data.body))
       reset()
     } catch (error) {
       if (error.response) setStatusMessage(error.response.data.message)

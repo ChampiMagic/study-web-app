@@ -6,7 +6,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 
 // Redux imports
 import { useDispatch } from 'react-redux'
-import { updateUser } from '../../../redux/slices/userSlice'
+import { updateProjects, updateTotalPages } from '../../../redux/slices/projectSlice'
 
 // Material UI imports
 import { Button, CircularProgress, Dialog, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
@@ -51,8 +51,8 @@ export default function FormDialogProject () {
 
       const response = await axios.post('/create-project', values, config)
 
-      dispatch(updateUser(response.data.body.user))
-
+      dispatch(updateProjects({ projects: [response.data.body.project] }))
+      dispatch(updateTotalPages())
       resetForm()
 
       handleClose()
