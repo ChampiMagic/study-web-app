@@ -22,10 +22,12 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage for 
 // Reducer imports
 import projectReducer from './slices/projectSlice'
 import userReducer from './slices/userSlice'
+import tagReducer from './slices/tagSlice'
 
 const reducers = combineReducers({
   userController: userReducer,
-  projectController: projectReducer
+  projectController: projectReducer,
+  tagController: tagReducer
 })
 
 const persistConfig = {
