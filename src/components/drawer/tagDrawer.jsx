@@ -39,12 +39,9 @@ export default function TagDrawer ({ handleTags }) {
     try {
       const config = HeaderConstructor()
 
-      const response = await axios.get(`/tag/${searchValue}`, config)
+      const response = await axios.get(`/tags/${searchValue}`, config)
 
       dispatch(newTags(response.data.body.tags))
-
-      // TODO Send response to searchBar globalState here!
-      console.log(response)
 
       reset()
     } catch (error) {
