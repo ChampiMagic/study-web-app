@@ -17,10 +17,11 @@ import HeaderConstructor from '../../utils/constructors/headerConstructor.js'
 
 import styles from './drawer.module.css'
 
-import { ArrowBack, BookmarkAdd, LabelImportant, Search } from '@mui/icons-material'
+import { ArrowBack, LabelImportant, Search } from '@mui/icons-material'
 
 import { Field, Form, Formik } from 'formik'
 import axios from 'axios'
+import FormDialogTag from '../formDialogs/tag/fromDialogTag'
 
 export default function TagDrawer ({ handleTags }) {
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' })
@@ -92,10 +93,7 @@ export default function TagDrawer ({ handleTags }) {
 
         </Formik>
 
-        {/* TODO: Remplace with formDialog component for creating a tag */}
-        <IconButton aria-label='create-tag' alt='create tag button'>
-          <BookmarkAdd />
-        </IconButton>
+        <FormDialogTag />
 
       </Box>
       <List className={styles.list_scrollBar} style={{ height: '84%', overflow: 'hidden', overflowY: 'scroll', margin: '1em 0' }}>
