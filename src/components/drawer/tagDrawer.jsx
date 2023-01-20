@@ -8,6 +8,10 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import { IconButton } from '@mui/material'
 
+// redux imports
+import { useDispatch, useSelector } from 'react-redux'
+import { newTags } from '../../redux/slices/tagSlice'
+
 import { useMediaQuery } from 'react-responsive'
 import HeaderConstructor from '../../utils/constructors/headerConstructor.js'
 
@@ -17,14 +21,13 @@ import { ArrowBack, BookmarkAdd, LabelImportant, Search } from '@mui/icons-mater
 
 import { Field, Form, Formik } from 'formik'
 import axios from 'axios'
-// import { useDispatch, useSelector } from 'react-redux'
 
 export default function TagDrawer ({ handleTags }) {
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' })
 
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
-  // const tags = useSelector(state => state.tagController.tags)
+  const tags = useSelector(state => state.tagController.tags)
 
   const [statusMessage, setStatusMessage] = React.useState('')
 
@@ -36,10 +39,9 @@ export default function TagDrawer ({ handleTags }) {
     try {
       const config = HeaderConstructor()
 
-      const response = await axios.get(`/tag/${searchValue}`, config)
+      const response = await axios.get(`/tags/${searchValue}`, config)
 
-      // TODO Send response to searchBar globalState here!
-      // dispatch(addTags(respose.data.body.tags))
+      dispatch(newTags(response.data.body.tags))
 
       reset()
     } catch (error) {
@@ -97,8 +99,7 @@ export default function TagDrawer ({ handleTags }) {
 
       </Box>
       <List className={styles.list_scrollBar} style={{ height: '84%', overflow: 'hidden', overflowY: 'scroll', margin: '1em 0' }}>
-        {/* TODO: Add global state Tags */}
-        {['tags'].map((text, index) => (
+        {tags.map((text) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
