@@ -9,7 +9,8 @@ import ListItemText from '@mui/material/ListItemText'
 import { IconButton } from '@mui/material'
 
 // redux imports
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { newTags } from '../../redux/slices/tagSlice'
 
 import { useMediaQuery } from 'react-responsive'
 import HeaderConstructor from '../../utils/constructors/headerConstructor.js'
@@ -20,12 +21,11 @@ import { ArrowBack, BookmarkAdd, LabelImportant, Search } from '@mui/icons-mater
 
 import { Field, Form, Formik } from 'formik'
 import axios from 'axios'
-// import { useDispatch, useSelector } from 'react-redux'
 
 export default function TagDrawer ({ handleTags }) {
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' })
 
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   const tags = useSelector(state => state.tagController.tags)
 
@@ -40,6 +40,8 @@ export default function TagDrawer ({ handleTags }) {
       const config = HeaderConstructor()
 
       const response = await axios.get(`/tag/${searchValue}`, config)
+
+      dispatch(newTags(response.data.body.tags))
 
       // TODO Send response to searchBar globalState here!
       console.log(response)

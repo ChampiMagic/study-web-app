@@ -9,7 +9,10 @@ export const tagController = createSlice({
   name: 'tagController',
   initialState,
   reducers: {
-    addTags: (state, action) => {
+    newTags: (state, action) => {
+      state.tags = action.payload.tags
+    },
+    updateTags: (state, action) => {
       state.tags = [...action.payload.tags, ...state.tags]
     },
     deleteAllTags: (state) => {
@@ -18,6 +21,6 @@ export const tagController = createSlice({
   }
 })
 
-export const { addTags, deleteAllTags } = tagController.actions
+export const { newTags, updateTags, deleteAllTags } = tagController.actions
 
 export default tagController.reducer
