@@ -9,6 +9,5 @@ export const createProjectValidationSchema = yup.object().shape({
     .required('name is requiered'),
   tag: yup
     .string()
-    .max(1000, 'Too long!')
     .required('Tag is requiered')
 })

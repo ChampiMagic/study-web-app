@@ -6,10 +6,11 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 
 // Redux imports
 import { useDispatch } from 'react-redux'
-import { updateTags } from '../../../redux/slices/tagSlice.js'
+import { addTag, updateTag } from '../../../redux/slices/tagSlice.js'
 
 // Material UI imports
 import { CircularProgress, Dialog, DialogContent, DialogContentText, DialogTitle, IconButton } from '@mui/material'
+import { BookmarkAdd, Edit } from '@mui/icons-material'
 
 // Validator Schema imports
 import { createTagValidationSchema } from '../../../utils/validationSchemas/tag.js'
@@ -20,9 +21,8 @@ import HeaderConstructor from '../../../utils/constructors/headerConstructor'
 
 // Css imports
 import styles from './formDialogTag.module.css'
-import { BookmarkAdd } from '@mui/icons-material'
 
-export default function FormDialogTag () {
+export default function FormDialogTag ({ type, tagId }) {
   // State used to render error messages from the backend
   const [statusMessage, setStatusMessage] = useState('')
 
@@ -47,13 +47,13 @@ export default function FormDialogTag () {
 
   const handleSubmit = async (values, resetForm) => {
     try {
+      const URL = type ? '/create-tag' : '/update-tag'
+
       const config = HeaderConstructor()
 
-      const response = await axios.post('/create-tag', values, config)
+      const response = type ? await axios.post(URL, values, config) : await axios.put(URL, { tagId, name: values.name }, config)
 
-      dispatch(updateTags({ tags: [response.data.body.tag] }))
-
-      resetForm()
+      type ? dispatch(addTag(response.data.body)) : dispatch(updateTag(response.data.body))
 
       handleClose()
     } catch (error) {
@@ -64,8 +64,8 @@ export default function FormDialogTag () {
 
   return (
     <>
-      <IconButton onClick={handleClickOpen} aria-label='create-tag' alt='create tag button'>
-        <BookmarkAdd />
+      <IconButton onClick={handleClickOpen} aria-label='tag' alt='submit tag button'>
+        {type ? <BookmarkAdd /> : <Edit />}
       </IconButton>
       <Dialog
         open={open}
@@ -73,7 +73,7 @@ export default function FormDialogTag () {
         aria-labelledby='form-dialog-title'
       >
 
-        <DialogTitle id='form-dialog-title'>Create a Tag</DialogTitle>
+        <DialogTitle id='form-dialog-title'>{type ? 'Create' : 'Update'} Tag</DialogTitle>
         <DialogContent>
           <DialogContentText>Please insert a name</DialogContentText>
           <Formik
@@ -85,14 +85,14 @@ export default function FormDialogTag () {
               <Form className={styles.form}>
 
                 <div>
-                  <label htmlFor='name'>Project Name</label>
+                  <label htmlFor='name'>Tag Name</label>
                   <Field type='text' id='name' name='name' />
                   <ErrorMessage name='name' component={() => (<p className={styles.error}>{errors.name}</p>)} />
                 </div>
 
                 {isSubmitting
                   ? <div className={styles.progress}><CircularProgress /> </div>
-                  : <button type='submit'>Create</button>}
+                  : <button type='submit'>{type ? 'Create' : 'Update'}</button>}
                 {statusMessage ? <p className={styles.statusError}>{statusMessage}</p> : null}
               </Form>
             )}

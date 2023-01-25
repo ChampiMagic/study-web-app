@@ -23,12 +23,11 @@
 	font-size: 18px;
 	padding: 10px;
 	margin-bottom: 5px;
-	color: #ffff
+	color: #000
 }
 
 .form input:focus {
 	outline: none;
-	border: 2px solid #0085FF;
 }
 
 .form .error {
