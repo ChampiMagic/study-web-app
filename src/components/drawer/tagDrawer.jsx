@@ -1,48 +1,57 @@
-import * as React from 'react'
-import Box from '@mui/material/Box'
+// React imports
+import React, { useState } from 'react'
 
+// MUI imports
+import Box from '@mui/material/Box'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import { IconButton } from '@mui/material'
+import { IconButton, ListItemSecondaryAction } from '@mui/material'
+import { ArrowBack, DeleteOutline, LabelImportant, Search } from '@mui/icons-material'
 
 // redux imports
 import { useDispatch, useSelector } from 'react-redux'
-import { newTags } from '../../redux/slices/tagSlice'
+import { deleteOneTag, newTags } from '../../redux/slices/tagSlice'
 
+// Formik imports
+import { Field, Form, Formik } from 'formik'
+
+// Components imports
+import FormDialogTag from '../formDialogs/tag/formDialogTag'
+
+// Others imports
 import { useMediaQuery } from 'react-responsive'
 import HeaderConstructor from '../../utils/constructors/headerConstructor.js'
+import axios from 'axios'
 
+// CSS imports
 import styles from './drawer.module.css'
 
-import { ArrowBack, LabelImportant, Search } from '@mui/icons-material'
-
-import { Field, Form, Formik } from 'formik'
-import axios from 'axios'
-import FormDialogTag from '../formDialogs/tag/fromDialogTag'
-
 export default function TagDrawer ({ handleTags }) {
+  // Query creation
   const isMobile = useMediaQuery({ query: '(max-width: 760px)' })
 
   const dispatch = useDispatch()
 
   const tags = useSelector(state => state.tagController.tags)
 
-  const [statusMessage, setStatusMessage] = React.useState('')
+  const [statusMessage, setStatusMessage] = useState('')
 
   const initialValue = {
     searchValue: ''
   }
 
-  const handleSubmit = async ({ searchValue }, reset) => {
+  const handleSearch = async ({ searchValue }, reset) => {
     try {
       const config = HeaderConstructor()
 
-      const response = await axios.get(`/tags/${searchValue}`, config)
+      const response = await axios.get(`/search-tags/${searchValue || 'null'}`, config)
 
-      dispatch(newTags(response.data.body.tags))
+      dispatch(newTags(response.data.body))
+
+      setStatusMessage('')
 
       reset()
     } catch (error) {
@@ -51,9 +60,22 @@ export default function TagDrawer ({ handleTags }) {
     }
   }
 
+  const handleDelete = async (tagId) => {
+    try {
+      const config = HeaderConstructor()
+
+      await axios.delete(`/delete-tag/${tagId}`, config)
+
+      dispatch(deleteOneTag({ tagId }))
+    } catch (error) {
+      if (error.response) setStatusMessage(error.response.data.message)
+      else setStatusMessage(error.message)
+    }
+  }
+
   return (
     <Box
-      sx={{ width: isMobile ? 200 : 300, height: '100vh' }}
+      sx={{ width: isMobile ? 230 : 330, height: '100vh' }}
       role='presentation'
     >
       <Box className={styles.back_btn}>
@@ -64,16 +86,15 @@ export default function TagDrawer ({ handleTags }) {
           aria-haspopup='true'
           onClick={() => handleTags(false)}
           color='inherit'
-          sx={{ fontSize: isMobile ? '1em' : '2em', margin: '.2em .1em' }}
         >
-          <ArrowBack fontSize={isMobile ? '1em' : '2em'} />
+          <ArrowBack sx={{ fontSize: isMobile ? '1em' : '2em' }} />
         </IconButton>
         <p>Go Back</p>
       </Box>
       <Box className={styles.searchBar_container}>
         <Formik
           initialValues={initialValue}
-          onSubmit={async (values, { resetForm }) => await handleSubmit(values, resetForm)}
+          onSubmit={async (values, { resetForm }) => await handleSearch(values, resetForm)}
         >
           <Form>
             <div className={styles.searchBar}>
@@ -93,18 +114,29 @@ export default function TagDrawer ({ handleTags }) {
 
         </Formik>
 
-        <FormDialogTag />
+        <FormDialogTag type={1} />
 
       </Box>
-      <List className={styles.list_scrollBar} style={{ height: '84%', overflow: 'hidden', overflowY: 'scroll', margin: '1em 0' }}>
-        {tags.map((text) => (
-          <ListItem key={text} disablePadding>
+      <List className={styles.list_container}>
+        {tags.map((tag) => (
+          <ListItem key={tag._id} disablePadding>
+
             <ListItemButton>
+
               <ListItemIcon>
                 <LabelImportant />
               </ListItemIcon>
-              <ListItemText primary={text} />
+
+              <ListItemText primary={tag.name} />
             </ListItemButton>
+
+            <ListItemSecondaryAction>
+              <FormDialogTag type={0} tagId={tag._id} />
+              <IconButton edge='end' aria-label='delete' onClick={() => handleDelete(tag._id)}>
+                <DeleteOutline />
+              </IconButton>
+            </ListItemSecondaryAction>
+
           </ListItem>
         ))}
       </List>

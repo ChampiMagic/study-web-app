@@ -10,10 +10,15 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
     gap: 1em;
     padding: 1em 3em;
     overflow: scroll;
     overflow-x: hidden;
+}
+
+.notFound {
+  color: #000
 }
 
 .pagination_container {

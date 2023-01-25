@@ -1,18 +1,15 @@
 .account_container {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    background-color: #FC6F58;
+    background-color: #FCB440;
     height: 15%;
 }
 
 
 .btn_user:focus {
     outline: none;
-}
-
-.back_btn {
-    display: flex;
-    align-items: center;
 }
 
 @media (max-width: 760px) {
@@ -22,12 +19,19 @@
   }
 
 
+/* TAG DRAWER */
+
+.back_btn {
+    display: flex;
+    align-items: center;
+    padding: .5em 0;
+}
 
 
-/* CSS FOR SEARCH */
 .searchBar_container {
     display: flex;
     align-items: center;
+    padding: .5em .7em;
 }
 
 .searchBar {
@@ -55,3 +59,10 @@
 	text-align: center;
 }
 
+path {
+    color: #fff;
+}
+
+.list_container {
+    padding-top: .8em;
+}
