@@ -70,12 +70,12 @@ export default function Register () {
           <Form className={styles.form}>
             <div>
               <label htmlFor='username'>Username</label>
-              <Field type='text' id='username' name='username' />
+              <Field type='text' id='username' name='username' autoComplete='off' />
               <ErrorMessage name='username' component={() => (<p className={styles.error}>{errors.username}</p>)} />
             </div>
             <div>
               <label htmlFor='email'>E-mail</label>
-              <Field type='text' id='email' name='email' />
+              <Field type='text' id='email' name='email' autoComplete='off' />
               <ErrorMessage name='email' component={() => (<p className={styles.error}>{errors.email}</p>)} />
             </div>
             <div>

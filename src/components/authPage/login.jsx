@@ -69,7 +69,7 @@ export default function Login () {
 
             <div>
               <label htmlFor='email'>E-mail</label>
-              <Field type='text' id='email' name='email' />
+              <Field type='text' id='email' name='email' autoComplete='off' />
               <ErrorMessage name='email' component={() => (<p className={styles.error}>{errors.email}</p>)} />
             </div>
             <div>

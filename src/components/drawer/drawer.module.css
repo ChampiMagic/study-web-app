@@ -1,0 +1,68 @@
+.account_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #FCB440;
+    height: 15%;
+}
+
+
+.btn_user:focus {
+    outline: none;
+}
+
+@media (max-width: 760px) {
+    .account_container {
+        height: 10%;
+    }
+  }
+
+
+/* TAG DRAWER */
+
+.back_btn {
+    display: flex;
+    align-items: center;
+    padding: .5em 0;
+}
+
+
+.searchBar_container {
+    display: flex;
+    align-items: center;
+    padding: .5em .7em;
+}
+
+.searchBar {
+    display: flex;
+    align-items: center;
+    border: 1px solid #000;
+    border-radius: 99px;
+    margin: 0 .5em
+}
+
+.searchBar input {
+    background-color: transparent;
+    color: #000;
+    border: none;
+    outline: none;
+    font-size: 1em;
+}
+
+
+.statusError {
+	color: #e92b2d;
+	font-weight: 600;
+	font-size: 24px;
+	margin-top: 1em;
+	text-align: center;
+}
+
+path {
+    color: #fff;
+}
+
+.list_container {
+    padding-top: .8em;
+}

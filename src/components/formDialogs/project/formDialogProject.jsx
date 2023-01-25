@@ -5,14 +5,17 @@ import React, { useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
 // Redux imports
-import { useDispatch } from 'react-redux'
-import { updateUser } from '../../../redux/slices/userSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { addProject } from '../../../redux/slices/projectSlice'
 
-// Material UI imports
-import { Button, CircularProgress, Dialog, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
+// MUI imports
+import { Button, CircularProgress, Dialog, DialogContent, DialogContentText, DialogTitle, MenuItem, TextField } from '@mui/material'
 
 // Validator Schema imports
 import { createProjectValidationSchema } from '../../../utils/validationSchemas/project.js'
+
+// Components imports
+import FormDialogTag from '../tag/formDialogTag'
 
 // Other imports
 import axios from 'axios'
@@ -24,6 +27,8 @@ import styles from './formDialogProject.module.css'
 export default function FormDialogProject () {
   // State used to render error messages from the backend
   const [statusMessage, setStatusMessage] = useState('')
+
+  const tags = useSelector(state => state.tagController.tags)
 
   // Used to make changes to a global state
   const dispatch = useDispatch()
@@ -51,12 +56,11 @@ export default function FormDialogProject () {
 
       const response = await axios.post('/create-project', values, config)
 
-      dispatch(updateUser(response.data.body.user))
-
-      resetForm()
+      dispatch(addProject(response.data.body))
 
       handleClose()
     } catch (error) {
+      console.log('ERROR')
       if (error.response) setStatusMessage(error.response.data.message)
       else setStatusMessage(error.message)
     }
@@ -64,7 +68,17 @@ export default function FormDialogProject () {
 
   return (
     <>
-      <Button variant='outlined' color='primary' onClick={handleClickOpen}>
+      <Button
+        variant='outlined' onClick={handleClickOpen} sx={{
+          backgroundColor: '#fff',
+          color: '#52dedb',
+          borderColor: '#52dedb',
+          ':hover': {
+            backgroundColor: '#fff',
+            boxShadow: '2px 1px 19px 2px rgba(255,255,255,1)'
+          }
+        }}
+      >
         Create Project
       </Button>
       <Dialog
@@ -81,7 +95,7 @@ export default function FormDialogProject () {
             validationSchema={() => createProjectValidationSchema}
             onSubmit={async (values, { resetForm }) => await handleSubmit(values, resetForm)}
           >
-            {({ errors, isSubmitting }) => (
+            {({ errors, isSubmitting, handleChange }) => (
               <Form className={styles.form}>
 
                 <div>
@@ -90,10 +104,25 @@ export default function FormDialogProject () {
                   <ErrorMessage name='name' component={() => (<p className={styles.error}>{errors.name}</p>)} />
                 </div>
                 <div>
-                  <label htmlFor='tag'>Tag</label>
-                  <Field type='text' id='tag' name='tag' />
-                  <ErrorMessage name='tag' component={() => (<p className={styles.error}>{errors.tag}</p>)} />
+                  <TextField
+                    id='tag'
+                    name='tag'
+                    select
+                    label='Select'
+                    defaultValue=''
+                    helperText='Please select one tag'
+                    onChange={handleChange}
+                  >
+
+                    {tags.map((tag) => (
+                      <MenuItem key={tag._id} value={tag._id}>
+                        {tag.name}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                  <FormDialogTag type={1} />
                 </div>
+                <ErrorMessage name='tag' component={() => (<p className={styles.error}>{errors.tag}</p>)} />
 
                 {isSubmitting
                   ? <div className={styles.progress}><CircularProgress /> </div>

@@ -20,10 +20,14 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage for 
 // The storage import is the default storage engine, that by default use the web localStorage.
 
 // Reducer imports
+import projectReducer from './slices/projectSlice'
 import userReducer from './slices/userSlice'
+import tagReducer from './slices/tagSlice'
 
 const reducers = combineReducers({
-  userController: userReducer
+  userController: userReducer,
+  projectController: projectReducer,
+  tagController: tagReducer
 })
 
 const persistConfig = {

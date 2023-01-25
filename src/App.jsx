@@ -25,7 +25,6 @@ export default function App () {
         <Route element={<PrivateAuthRoute />}>
           <Route path='/home' element={<HomePage />} />
         </Route>
-
         {/* If not page found, we redirect to the 404 page */}
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
