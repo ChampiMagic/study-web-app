@@ -6,6 +6,7 @@ import AuthPage from './pages/authPage.jsx'
 import HomePage from './pages/homePage.jsx'
 import NotFoundPage from './pages/notFoundPage.jsx'
 import PrivateAuthRoute from './components/privateRoutes/privateAuthRoute.jsx'
+import ProjectPage from './pages/projectPage.jsx'
 
 // Css imports
 import './index.css'
@@ -24,6 +25,7 @@ export default function App () {
         {/* Only authenticated users can access */}
         <Route element={<PrivateAuthRoute />}>
           <Route path='/home' element={<HomePage />} />
+          <Route path='/project/:projectId' element={<ProjectPage />} />
         </Route>
         {/* If not page found, we redirect to the 404 page */}
         <Route path='*' element={<NotFoundPage />} />

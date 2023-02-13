@@ -4,10 +4,6 @@ import React, { useState } from 'react'
 // Formik imports
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
-// Redux imports
-import { useDispatch } from 'react-redux'
-import { updateUser } from '../../../redux/slices/userSlice'
-
 // Material UI imports
 import { Button, CircularProgress, Dialog, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 
@@ -21,12 +17,15 @@ import HeaderConstructor from '../../../utils/constructors/headerConstructor'
 // Css imports
 import styles from './formDialogCard.module.css'
 
-export default function FormDialogProject ({ projectId }) {
+// React Router imports
+import { useParams } from 'react-router-dom'
+
+export default function FormDialogProject () {
   // State used to render error messages from the backend
   const [statusMessage, setStatusMessage] = useState('')
 
   // Used to make changes to a global state
-  const dispatch = useDispatch()
+  const { projectId } = useParams()
 
   // PopUp Handler
   const [open, setOpen] = useState(false)
@@ -49,11 +48,7 @@ export default function FormDialogProject ({ projectId }) {
     try {
       const config = HeaderConstructor()
 
-      const response = await axios.post('/create-card', { ...values, projectId }, config)
-
-      dispatch(updateUser(response.data.body.user))
-
-      resetForm()
+      await axios.post('/create-card', { ...values, projectId }, config)
 
       handleClose()
     } catch (error) {
