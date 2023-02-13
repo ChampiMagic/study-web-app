@@ -14,19 +14,20 @@ import ProjectFilter from '../filter/projectFilter'
 // Css imports
 import styles from './navigator.module.css'
 
-export default function Navigator ({ dialogType }) {
+export default function Navigator ({ type }) {
   return (
     <AppBar position='static' className={styles.app_bar} sx={{ bgcolor: '#fcb440', display: 'flex', justifyContent: 'center' }}>
       <Toolbar>
         <div className={styles.left_container}>
-          <TemporaryDrawer type={dialogType} />
+          <TemporaryDrawer type={type} />
 
-          {dialogType ? <FormDialogProject className={styles.btn_popUp} /> : <FormDialogCard className={styles.btn_popUp} />}
+          {type === 0 && <FormDialogProject className={styles.btn_popUp} />}
+          {(type === 1 || type === 2) && <FormDialogCard className={styles.btn_popUp} />}
         </div>
 
-        {dialogType ? <ProjectFilter /> : null}
+        {type === 0 && <ProjectFilter />}
 
-        <SearchBar isProjectSearchBar={dialogType} />
+        {type !== 2 && <SearchBar type={type} />}
       </Toolbar>
     </AppBar>
   )

@@ -19,7 +19,7 @@ import HeaderConstructor from '../../utils/constructors/headerConstructor'
 // Css import
 import styles from './searchBar.module.css'
 
-export default function SearchBar ({ isProjectSearchBar }) {
+export default function SearchBar ({ type }) {
   const dispatch = useDispatch()
 
   const [statusMessage, setStatusMessage] = useState('')
@@ -31,7 +31,7 @@ export default function SearchBar ({ isProjectSearchBar }) {
   const handleSubmit = async ({ searchValue }, reset) => {
     try {
       const myHeader = HeaderConstructor()
-      const URL = isProjectSearchBar
+      const URL = type === 0
         ? `/search-projects/${searchValue || 'null'}`
         : `/search-cards/${searchValue || 'null'}`
       const response = await axios.get(URL, myHeader)

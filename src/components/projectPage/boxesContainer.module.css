@@ -1,3 +1,17 @@
+:root{
+    --size: 150px;
+    --icon-size: 30px;
+    --icon-color: #483C3E;
+  }
+
+.high_container {
+    grid-area: 2 / 1 / 6 / 6; 
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+
 .projectInfo {
     text-align: left;
     width: fit-content;
@@ -5,11 +19,14 @@
     border-radius: 8px;
     background-color: rgb(149, 110, 71);
     color: bisque;
+    margin-bottom: 15em;
+    margin-top: 3em;
 }
 
 .boxContainer {
-    display: flex;
-    justify-content: space-between;
+   width: 100%;
+   display: flex;
+   justify-content: space-around;
 }
 
 .box {
