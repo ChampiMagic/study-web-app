@@ -13,6 +13,7 @@ import './index.css'
 
 // React-router imports
 import { Route, Routes } from 'react-router-dom'
+import ProfilePage from './pages/profilePage.jsx'
 
 export default function App () {
   return (
@@ -25,6 +26,7 @@ export default function App () {
         {/* Only authenticated users can access */}
         <Route element={<PrivateAuthRoute />}>
           <Route path='/home' element={<HomePage />} />
+          <Route path='/profile' element={<ProfilePage />} />
           <Route path='/project/:projectId' element={<ProjectPage />} />
         </Route>
         {/* If not page found, we redirect to the 404 page */}
