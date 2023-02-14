@@ -52,6 +52,7 @@ export default function BoxesContainer () {
       const response = await axios.get(`/random-card?projectId=${projectId}&box=${boxId}`, config)
 
       setCard(response.data.body.card)
+
       setOpen(true)
     } catch (e) {
       console.error('[Error en la llamada a getCard] ' + e)
@@ -72,14 +73,14 @@ export default function BoxesContainer () {
         {actualProject.boxes
           ? actualProject.boxes.map((v, i) => {
             return (
-              <CardBoardBox key={v._id} id={i} getCard={getCard} days={boxDays} />
+              <CardBoardBox key={v._id} id={i} getCard={getCard} days={boxDays} open={open} disable={v.isEmpty} />
             )
           })
           : null}
       </section>
       {/* CHANGE THIS DIALOG FOR THE REAL ONE */}
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Subscribe</DialogTitle>
+        <DialogTitle>Question</DialogTitle>
         <DialogContent>
           <DialogContentText>
             {actualCard.question}
@@ -88,15 +89,14 @@ export default function BoxesContainer () {
             autoFocus
             margin='dense'
             id='name'
-            label='Email Address'
-            type='email'
+            label='Answer'
+            type='answer'
             fullWidth
             variant='standard'
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
+          <Button onClick={handleClose}>Submit</Button>
         </DialogActions>
       </Dialog>
     </Box>
