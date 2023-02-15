@@ -19,6 +19,8 @@ import styles from './formDialogCard.module.css'
 
 // React Router imports
 import { useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { addCard } from '../../../redux/slices/cardSlice.js'
 
 export default function FormDialogProject () {
   // State used to render error messages from the backend
@@ -26,6 +28,8 @@ export default function FormDialogProject () {
 
   // Used to make changes to a global state
   const { projectId } = useParams()
+
+  const dispatch = useDispatch()
 
   // PopUp Handler
   const [open, setOpen] = useState(false)
@@ -48,7 +52,10 @@ export default function FormDialogProject () {
     try {
       const config = HeaderConstructor()
 
-      await axios.post('/create-card', { ...values, projectId }, config)
+      const response = await axios.post('/create-card', { ...values, projectId }, config)
+
+      dispatch(addCard(response.data.body))
+      console.log(response)
 
       handleClose()
     } catch (error) {

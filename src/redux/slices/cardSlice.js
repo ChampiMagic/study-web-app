@@ -17,7 +17,8 @@ export const cardController = createSlice({
       state.totalPages = Math.ceil((state.currentCards.length) / 8)
     },
     addCard: (state, action) => {
-      state.cards = [action.payload.cards, ...state.cards]
+      state.cards = [action.payload.card, ...state.cards]
+      state.currentCards = [action.payload.card, ...state.currentCards]
 
       state.totalPages = Math.ceil(state.currentCards.length / 8)
     },

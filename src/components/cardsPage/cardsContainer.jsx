@@ -17,7 +17,7 @@ import HeaderConstructor from '../../utils/constructors/headerConstructor.js'
 import axios from 'axios'
 
 // Css imports
-import styles from './projectsContainer.module.css'
+import styles from './cardsContainer.module.css'
 import { useParams } from 'react-router-dom'
 
 export default function CardsContainer () {
@@ -32,7 +32,7 @@ export default function CardsContainer () {
     try {
       const config = HeaderConstructor()
 
-      const response = await axios.get(`/cards?projectId=${projectId}`, config)
+      const response = await axios.get(`/card?projectId=${projectId}`, config)
 
       dispatch(newCards(response.data.body))
     } catch (error) {
@@ -52,7 +52,7 @@ export default function CardsContainer () {
         {globalStateCards.currentCards.length
           ? globalStateCards.currentCards.map((c, i) => {
             if ((i + 1) > ((actualPage - 1) * 8) && (i + 1) < (8 * actualPage)) {
-              return <QuestionCard key={c._id} id={c._id} name={c.question} answer={c.answer} />
+              return <QuestionCard key={c._id} id={c._id} question={c.question} answer={c.answer} />
             }
 
             return null

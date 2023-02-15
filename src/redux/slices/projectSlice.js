@@ -26,6 +26,21 @@ export const projectController = createSlice({
 
       state.totalPages = Math.ceil(state.currentProjects.length / 8)
     },
+    updateProject: (state, action) => {
+      state.projects = state.projects.map((p) => {
+        if (p._id === action.payload.project._id) {
+          p = action.payload.project
+        }
+        return p
+      })
+
+      state.currentProjects = state.currentProjects.map((p) => {
+        if (p._id === action.payload.project._id) {
+          p = action.payload.project
+        }
+        return p
+      })
+    },
     updateCurrentProjects: (state, action) => {
       const newProjects = action.payload.projects
 
@@ -59,6 +74,6 @@ export const projectController = createSlice({
   }
 })
 
-export const { newProjects, addProject, deleteProjects, updateCurrentProjects, filterProjects, updateProjectsTags } = projectController.actions
+export const { newProjects, addProject, deleteProjects, updateCurrentProjects, filterProjects, updateProjectsTags, updateProject } = projectController.actions
 
 export default projectController.reducer
