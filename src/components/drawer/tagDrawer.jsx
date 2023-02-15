@@ -14,6 +14,7 @@ import { ArrowBack, DeleteOutline, LabelImportant, Search } from '@mui/icons-mat
 // redux imports
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteOneTag, newTags } from '../../redux/slices/tagSlice'
+import { updateProjectsTags } from '../../redux/slices/projectSlice'
 
 // Formik imports
 import { Field, Form, Formik } from 'formik'
@@ -67,6 +68,10 @@ export default function TagDrawer ({ handleTags }) {
       await axios.delete(`/delete-tag/${tagId}`, config)
 
       dispatch(deleteOneTag({ tagId }))
+
+      const projectResponse = await axios.get('/projects', config)
+
+      dispatch(updateProjectsTags(projectResponse.data.body))
     } catch (error) {
       if (error.response) setStatusMessage(error.response.data.message)
       else setStatusMessage(error.message)

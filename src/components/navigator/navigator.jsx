@@ -27,7 +27,7 @@ export default function Navigator ({ type }) {
 
         {type === 0 && <ProjectFilter />}
 
-        {type !== 2 && <SearchBar type={type} />}
+        {type === 2 && <SearchBar type={type} />}
       </Toolbar>
     </AppBar>
   )

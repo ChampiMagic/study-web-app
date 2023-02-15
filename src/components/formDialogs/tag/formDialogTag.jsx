@@ -7,6 +7,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 // Redux imports
 import { useDispatch } from 'react-redux'
 import { addTag, updateTag } from '../../../redux/slices/tagSlice.js'
+import { updateProjectsTags } from '../../../redux/slices/projectSlice.js'
 
 // Material UI imports
 import { CircularProgress, Dialog, DialogContent, DialogContentText, DialogTitle, IconButton } from '@mui/material'
@@ -51,9 +52,13 @@ export default function FormDialogTag ({ type, tagId }) {
 
       const config = HeaderConstructor()
 
-      const response = type ? await axios.post(URL, values, config) : await axios.put(URL, { tagId, name: values.name }, config)
+      const tagResponse = type ? await axios.post(URL, values, config) : await axios.put(URL, { tagId, name: values.name }, config)
 
-      type ? dispatch(addTag(response.data.body)) : dispatch(updateTag(response.data.body))
+      type ? dispatch(addTag(tagResponse.data.body)) : dispatch(updateTag(tagResponse.data.body))
+
+      const projectResponse = await axios.get('/projects', config)
+
+      dispatch(updateProjectsTags(projectResponse.data.body))
 
       handleClose()
     } catch (error) {

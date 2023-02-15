@@ -18,9 +18,12 @@ import HeaderConstructor from '../../utils/constructors/headerConstructor'
 
 // Css import
 import styles from './searchBar.module.css'
+import { updateCurrentCards } from '../../redux/slices/cardSlice.js'
+import { useParams } from 'react-router-dom'
 
 export default function SearchBar ({ type }) {
   const dispatch = useDispatch()
+  const { projectId } = useParams()
 
   const [statusMessage, setStatusMessage] = useState('')
 
@@ -33,10 +36,15 @@ export default function SearchBar ({ type }) {
       const myHeader = HeaderConstructor()
       const URL = type === 0
         ? `/search-projects/${searchValue || 'null'}`
-        : `/search-cards/${searchValue || 'null'}`
+        : `/search-card?question=${searchValue || 'null'}&projectId=${projectId}`
       const response = await axios.get(URL, myHeader)
 
-      dispatch(updateCurrentProjects(response.data.body))
+      if (type === 0) {
+        dispatch(updateCurrentProjects(response.data.body))
+      } else {
+        dispatch(updateCurrentCards(response.data.body))
+      }
+
       setStatusMessage('')
 
       reset()
