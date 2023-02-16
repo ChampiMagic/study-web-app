@@ -15,7 +15,7 @@ import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import { AccountCircle, ArrowBack, Bookmark, Delete, Home, Logout, SettingsApplications, Update, Visibility } from '@mui/icons-material'
+import { AccountCircle, ArrowBack, Bookmark, Delete, Home, Logout, SettingsApplications, Visibility } from '@mui/icons-material'
 
 // Components imports
 import useLogOut from '../../utils/hooks/useLogOut.js'
@@ -85,10 +85,6 @@ export default function fGeneralDrawer ({ type, handleTags, toggleDrawer }) {
     setOpen(false)
   }
 
-  function handleClickOpen () {
-    setOpen(true)
-  }
-
   const projectDrawer = () => {
     return (
       <>
@@ -106,14 +102,6 @@ export default function fGeneralDrawer ({ type, handleTags, toggleDrawer }) {
               <Visibility sx={{ fontSize: isMobile ? '.5em' : '.7em' }} />
             </ListItemIcon>
             <ListItemText primary='View Cards' sx={{ fontSize: isMobile ? '.5em' : '3em' }} />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton onClick={handleClickOpen} sx={{ fontSize: isMobile ? '.5em' : '3em' }}>
-            <ListItemIcon>
-              <Update sx={{ fontSize: isMobile ? '.5em' : '.7em' }} />
-            </ListItemIcon>
-            <ListItemText primary='Update project' sx={{ fontSize: isMobile ? '.5em' : '3em' }} />
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
@@ -147,6 +135,7 @@ export default function fGeneralDrawer ({ type, handleTags, toggleDrawer }) {
             <ListItemText primary='Back to Project' sx={{ fontSize: isMobile ? '.5em' : '3em' }} />
           </ListItemButton>
         </ListItem>
+        {/* <FormDialogProjectUpdate open={open} handleClose={handleClose} /> */}
       </>
     )
   }
@@ -188,7 +177,6 @@ export default function fGeneralDrawer ({ type, handleTags, toggleDrawer }) {
           </ListItemButton>
         </ListItem>
       </List>
-      <FormDialogProjectUpdate open={open} handleClose={handleClose} />
     </Box>
   )
 }

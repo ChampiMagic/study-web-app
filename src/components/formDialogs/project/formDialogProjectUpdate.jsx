@@ -32,7 +32,6 @@ export default function FormDialogProjectUpdate ({ open, handleClose }) {
   const { projectId } = useParams()
 
   const projects = useSelector((state) => state.projectController.projects)
-  console.log(projects)
   const project = projects.find(p => p._id === projectId)
 
   const tags = useSelector(state => state.tagController.tags)
