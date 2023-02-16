@@ -14,9 +14,13 @@ import styles from './boxesContainer.module.css'
 import axios from 'axios'
 import HeaderConstructor from '../../utils/constructors/headerConstructor'
 import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { changeSelectedProject } from '../../redux/slices/projectSlice'
 
 export default function BoxesContainer () {
-  const [actualProject, setProject] = useState({})
+  const actualProject = useSelector(state => state.projectController.selectedProject)
+
+  const dispatch = useDispatch()
 
   const boxDays = [
     'preguntas para responder cada dia',
@@ -35,8 +39,8 @@ export default function BoxesContainer () {
       const config = HeaderConstructor()
 
       const response = await axios.get(`/project/${projectId}`, config)
-      console.log(response)
-      setProject(response.data.body.project)
+
+      dispatch(changeSelectedProject(response.data.body))
     } catch (e) {
       console.error('[Error en la llamada a getProject] ' + e)
     }

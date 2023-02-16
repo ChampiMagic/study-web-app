@@ -6,7 +6,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 
 // Redux imports
 import { useDispatch, useSelector } from 'react-redux'
-import { updateProject } from '../../../redux/slices/projectSlice'
+import { changeSelectedProject, updateProject } from '../../../redux/slices/projectSlice'
 
 // MUI imports
 import { CircularProgress, Dialog, DialogContent, DialogContentText, DialogTitle, MenuItem, TextField } from '@mui/material'
@@ -29,11 +29,9 @@ export default function FormDialogProjectUpdate ({ open, handleClose }) {
   // State used to render error messages from the backend
   const [statusMessage, setStatusMessage] = useState('')
 
-  const { projectId } = useParams()
+  const project = useSelector(state => state.projectController.selectedProject)
 
-  const projects = useSelector((state) => state.projectController.projects)
-  console.log(projects)
-  const project = projects.find(p => p._id === projectId)
+  const { projectId } = useParams()
 
   const tags = useSelector(state => state.tagController.tags)
 
@@ -43,7 +41,7 @@ export default function FormDialogProjectUpdate ({ open, handleClose }) {
   // Formik form initial values
   const initialValues = {
     name: project.name ?? '',
-    tag: project.tag._id ?? ''
+    tag: project.tag ? project.tag._id : ''
   }
 
   const handleSubmit = async (values, resetForm) => {
@@ -53,6 +51,7 @@ export default function FormDialogProjectUpdate ({ open, handleClose }) {
       const response = await axios.put('/update-project', { ...values, projectId }, config)
 
       dispatch(updateProject(response.data.body))
+      dispatch(changeSelectedProject(response.data.body))
 
       handleClose()
     } catch (error) {
@@ -92,7 +91,7 @@ export default function FormDialogProjectUpdate ({ open, handleClose }) {
                     name='tag'
                     select
                     label='Select'
-                    defaultValue={project.tag._id ?? ''}
+                    defaultValue={project.tag ? project.tag._id : ''}
                     helperText='Please select one tag'
                     onChange={handleChange}
                   >

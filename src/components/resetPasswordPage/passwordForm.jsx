@@ -1,56 +1,44 @@
 // React imports
 import React, { useState } from 'react'
 
-// Redux imports
-import { useDispatch } from 'react-redux'
-import { saveUser } from '../../redux/slices/userSlice.js'
-
 // Formik imports
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 
 // Material UI imports
-import { Button, CircularProgress } from '@mui/material'
+import { CircularProgress } from '@mui/material'
 
 // ValidatorSchemas imports
-import { loginValidationSchema } from '../../utils/validationSchemas/login.js'
+import { passwordValidationSchema } from '../../utils/validationSchemas/resetPassword'
 
 // Css imports
-import styles from './auth.module.css'
+import styles from './forms.module.css'
 
 // Others
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
-export default function Login () {
+export default function PasswordForm ({ token }) {
   // State used to render error messages from the backend
   const [statusMessage, setStatusMessage] = useState('')
-
-  // Used to redirect the user
   const navigate = useNavigate()
-
-  // Used to make changes to a global state
-  const dispatch = useDispatch()
 
   // Formik form initial values
   const initialValues = {
-    email: '',
-    password: ''
+    password: '',
+    passwordConfirmation: ''
   }
 
   const handleSubmit = async (values, reset) => {
     setStatusMessage('')
 
     try {
-      const response = await axios.post('/login', values)
-
-      // eslint-disable-next-line no-undef
-      localStorage.setItem('token', response.data.body.token)
-
-      dispatch(saveUser(response.data.body.user))
+      const response = await axios.put('/reset-password', { ...values, resetToken: token })
 
       reset()
 
-      navigate('/home')
+      navigate('/')
+
+      setStatusMessage(response.data.body.message)
     } catch (error) {
       if (error.response) setStatusMessage(error.response.data.message)
       else setStatusMessage(error.message)
@@ -61,30 +49,26 @@ export default function Login () {
     <>
       <Formik
         initialValues={initialValues}
-        validationSchema={() => loginValidationSchema}
+        validationSchema={() => passwordValidationSchema}
         onSubmit={async (values, { resetForm }) => await handleSubmit(values, resetForm)}
       >
         {({ errors, isSubmitting }) => (
           <Form className={styles.form}>
 
             <div>
-              <label htmlFor='email'>E-mail</label>
-              <Field type='text' id='email' name='email' autoComplete='off' />
-              <ErrorMessage name='email' component={() => (<p className={styles.error}>{errors.email}</p>)} />
-            </div>
-            <div>
               <label htmlFor='password'>Password</label>
               <Field type='password' id='password' name='password' />
               <ErrorMessage name='password' component={() => (<p className={styles.error}>{errors.password}</p>)} />
             </div>
-
-            <Button onClick={() => navigate('/reset-password')}>
-              Forgot Password
-            </Button>
+            <div>
+              <label htmlFor='passwordConfirmation'>Password Confirmation</label>
+              <Field type='password' id='passwordConfirmation' name='passwordConfirmation' />
+              <ErrorMessage name='passwordConfirmation' component={() => (<p className={styles.error}>{errors.passwordConfirmation}</p>)} />
+            </div>
 
             {isSubmitting
               ? <div className={styles.progress}><CircularProgress /> </div>
-              : <button type='submit'>Login</button>}
+              : <button type='submit'>Reset</button>}
             {statusMessage ? <p className={styles.statusError}>{statusMessage}</p> : null}
           </Form>
         )}

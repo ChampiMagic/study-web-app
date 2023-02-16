@@ -124,6 +124,7 @@ export default function fGeneralDrawer ({ type, handleTags, toggleDrawer }) {
             <ListItemText primary='Delete Project' sx={{ fontSize: isMobile ? '.5em' : '3em' }} />
           </ListItemButton>
         </ListItem>
+        <FormDialogProjectUpdate open={open} handleClose={handleClose} />
       </>
     )
   }
@@ -155,7 +156,6 @@ export default function fGeneralDrawer ({ type, handleTags, toggleDrawer }) {
     <Box
       sx={{ width: isMobile ? 200 : 300, height: '100vh' }}
       role='presentation'
-      onKeyDown={toggleDrawer(false)}
     >
       <Box className={styles.account_container}>
 
@@ -188,7 +188,6 @@ export default function fGeneralDrawer ({ type, handleTags, toggleDrawer }) {
           </ListItemButton>
         </ListItem>
       </List>
-      <FormDialogProjectUpdate open={open} handleClose={handleClose} />
     </Box>
   )
 }

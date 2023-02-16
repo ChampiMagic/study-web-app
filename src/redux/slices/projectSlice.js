@@ -5,7 +5,8 @@ const initialState = {
   projects: [],
   currentProjects: [],
   totalPages: 0,
-  filter: 'all'
+  filter: 'all',
+  selectedProject: {}
 }
 
 export const projectController = createSlice({
@@ -70,10 +71,13 @@ export const projectController = createSlice({
       else state.currentProjects = state.projects.filter((p) => p.tag.name === action.payload.tag)
 
       state.totalPages = Math.ceil(state.currentProjects.length / 8)
+    },
+    changeSelectedProject: (state, action) => {
+      state.selectedProject = action.payload.project
     }
   }
 })
 
-export const { newProjects, addProject, deleteProjects, updateCurrentProjects, filterProjects, updateProjectsTags, updateProject } = projectController.actions
+export const { newProjects, addProject, deleteProjects, updateCurrentProjects, filterProjects, updateProjectsTags, updateProject, changeSelectedProject } = projectController.actions
 
 export default projectController.reducer

@@ -35,7 +35,7 @@ const reducers = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['userController']
+  whitelist: ['userController', 'tagController']
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers)
