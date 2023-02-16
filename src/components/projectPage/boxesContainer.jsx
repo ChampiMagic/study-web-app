@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 // React imports
 import React, { useState, useEffect } from 'react'
 
@@ -32,6 +33,8 @@ export default function BoxesContainer () {
   const { projectId } = useParams()
 
   const [actualCard, setCard] = useState({})
+  const [totalCards, setTotalCards] = useState(0)
+
   const [open, setOpen] = useState(false)
 
   const getProject = async () => {
@@ -72,12 +75,13 @@ export default function BoxesContainer () {
       <Box className={styles.projectInfo}>
         <h2>Project: {actualProject.name ?? null}</h2>
         <h3>Tag: {actualProject.tag ? actualProject.tag.name : null}</h3>
+        <h3>Cantidad de tarjetas: {actualProject.boxes ? totalCards : null}</h3>
       </Box>
       <section className={styles.boxContainer}>
         {actualProject.boxes
           ? actualProject.boxes.map((v, i) => {
             return (
-              <CardBoardBox key={v._id} id={i} getCard={getCard} days={boxDays} open={open} disable={v.isEmpty} />
+              <CardBoardBox key={v._id} id={i} getCard={getCard} days={boxDays[i]} open={open} disable={v.isEmpty} />
             )
           })
           : null}
