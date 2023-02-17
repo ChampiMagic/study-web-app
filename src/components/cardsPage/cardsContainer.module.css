@@ -1,0 +1,39 @@
+.high_container {
+    grid-area: 2 / 1 / 6 / 6; 
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mid_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    padding: 1em 3em;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.notFound {
+  color: #000
+}
+
+.pagination_container {
+    padding: 1em;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.mid_container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.mid_container {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+
