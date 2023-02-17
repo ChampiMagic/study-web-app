@@ -31,7 +31,7 @@ export default function EmailForm () {
     try {
       const response = await axios.put('/forgot-password', values)
 
-      setStatusMessage(response.data.body.message)
+      setStatusMessage(response.data.message)
     } catch (error) {
       if (error.response) setStatusMessage(error.response.data.message)
       else setStatusMessage(error.message)

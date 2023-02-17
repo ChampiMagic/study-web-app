@@ -136,7 +136,7 @@ export default function TagDrawer ({ handleTags }) {
             </ListItemButton>
 
             <ListItemSecondaryAction>
-              <FormDialogTag type={0} tagId={tag._id} />
+              <FormDialogTag type={0} tag={tag} />
               <IconButton edge='end' aria-label='delete' onClick={() => handleDelete(tag._id)}>
                 <DeleteOutline />
               </IconButton>

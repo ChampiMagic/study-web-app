@@ -6,8 +6,10 @@ import './cardBoardBox.css'
 
 export default function CardBoardBox ({ id, disable, days, getCard, open }) {
   function ani (id) {
-    if (disable) { document.getElementById(id).className += ' classname' }
-    getCard(id)
+    if (!disable) {
+      document.getElementById(id).className += ' classname'
+      getCard(id)
+    }
   }
 
   React.useEffect(() => {

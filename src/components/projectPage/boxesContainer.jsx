@@ -20,6 +20,13 @@ import { changeSelectedProject } from '../../redux/slices/projectSlice'
 
 export default function BoxesContainer () {
   const actualProject = useSelector(state => state.projectController.selectedProject)
+  let currentTotalCards = 0
+  let totalCards = actualProject.completeBox?.length ?? 0
+
+  actualProject.boxes?.forEach(b => {
+    totalCards += b.cards.length
+    currentTotalCards += b.cards.length
+  })
 
   const dispatch = useDispatch()
 
@@ -33,7 +40,6 @@ export default function BoxesContainer () {
   const { projectId } = useParams()
 
   const [actualCard, setCard] = useState({})
-  const [totalCards, setTotalCards] = useState(0)
 
   const [open, setOpen] = useState(false)
 
@@ -66,16 +72,36 @@ export default function BoxesContainer () {
     }
   }
 
+  const handleAnswer = async () => {
+    try {
+      const config = HeaderConstructor()
+      const body = {
+        cardId: actualCard._id,
+        projectId,
+        isCorrect: true
+      }
+
+      const response = await axios.put('/move-card', body, config)
+
+      dispatch(changeSelectedProject(response.data.body))
+
+      handleClose()
+    } catch (e) {
+      console.error('[Error en la llamada a move-card] ' + e)
+    }
+  }
+
   useEffect(() => {
     getProject()
-  }, [])
+  }, [actualProject])
 
   return (
     <Box className={styles.high_container}>
       <Box className={styles.projectInfo}>
         <h2>Project: {actualProject.name ?? null}</h2>
         <h3>Tag: {actualProject.tag ? actualProject.tag.name : null}</h3>
-        <h3>Cantidad de tarjetas: {actualProject.boxes ? totalCards : null}</h3>
+        <h3>Tarjetas en uso: {currentTotalCards}</h3>
+        <h3>Total de tarjetas: {totalCards}</h3>
       </Box>
       <section className={styles.boxContainer}>
         {actualProject.boxes
@@ -104,7 +130,7 @@ export default function BoxesContainer () {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Submit</Button>
+          <Button onClick={handleAnswer}>Submit</Button>
         </DialogActions>
       </Dialog>
     </Box>

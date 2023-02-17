@@ -23,7 +23,7 @@ import HeaderConstructor from '../../../utils/constructors/headerConstructor'
 // Css imports
 import styles from './formDialogTag.module.css'
 
-export default function FormDialogTag ({ type, tagId }) {
+export default function FormDialogTag ({ type, tag }) {
   // State used to render error messages from the backend
   const [statusMessage, setStatusMessage] = useState('')
 
@@ -35,7 +35,7 @@ export default function FormDialogTag ({ type, tagId }) {
 
   // Formik form initial values
   const initialValues = {
-    name: ''
+    name: (!type && tag) ? tag.name : ''
   }
 
   function handleClose () {
@@ -52,7 +52,7 @@ export default function FormDialogTag ({ type, tagId }) {
 
       const config = HeaderConstructor()
 
-      const tagResponse = type ? await axios.post(URL, values, config) : await axios.put(URL, { tagId, name: values.name }, config)
+      const tagResponse = type ? await axios.post(URL, values, config) : await axios.put(URL, { tagId: tag._id, name: values.name }, config)
 
       type ? dispatch(addTag(tagResponse.data.body)) : dispatch(updateTag(tagResponse.data.body))
 
