@@ -7,13 +7,15 @@ import HomePage from './pages/homePage.jsx'
 import NotFoundPage from './pages/notFoundPage.jsx'
 import PrivateAuthRoute from './components/privateRoutes/privateAuthRoute.jsx'
 import ProjectPage from './pages/projectPage.jsx'
+import ProfilePage from './pages/profilePage.jsx'
+import CardsPage from './pages/cardsPage.jsx'
+import ResetPasswordPage from './pages/resetPasswordPage.jsx'
 
 // Css imports
 import './index.css'
 
 // React-router imports
 import { Route, Routes } from 'react-router-dom'
-import ProfilePage from './pages/profilePage.jsx'
 
 export default function App () {
   return (
@@ -28,9 +30,14 @@ export default function App () {
           <Route path='/home' element={<HomePage />} />
           <Route path='/profile' element={<ProfilePage />} />
           <Route path='/project/:projectId' element={<ProjectPage />} />
+          <Route path='/cards/:projectId' element={<CardsPage />} />
         </Route>
         {/* If not page found, we redirect to the 404 page */}
         <Route path='*' element={<NotFoundPage />} />
+
+        {/* Forgot Password Page */}
+        <Route path='/reset-password' element={<ResetPasswordPage />} />
+        <Route path='/reset-password/:token' element={<ResetPasswordPage />} />
       </Routes>
     </>
   )

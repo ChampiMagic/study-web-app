@@ -1,3 +1,19 @@
+  
+.boxArticle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgb(149, 110, 71);
+}
+
+.boxArticle > h3 {
+  text-align: center;
+  margin-bottom: 3rem;
+  margin-right: 5rem;
+  width: 250px;
+}
+
+  
   /* BOX STYLES*/
   .box-89{
     position: relative;

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 // React imports
 import React, { useState, useEffect } from 'react'
 
@@ -14,9 +15,20 @@ import styles from './boxesContainer.module.css'
 import axios from 'axios'
 import HeaderConstructor from '../../utils/constructors/headerConstructor'
 import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { changeSelectedProject } from '../../redux/slices/projectSlice'
 
 export default function BoxesContainer () {
-  const [actualProject, setProject] = useState({})
+  const actualProject = useSelector(state => state.projectController.selectedProject)
+  let currentTotalCards = 0
+  let totalCards = actualProject.completeBox?.length ?? 0
+
+  actualProject.boxes?.forEach(b => {
+    totalCards += b.cards.length
+    currentTotalCards += b.cards.length
+  })
+
+  const dispatch = useDispatch()
 
   const boxDays = [
     'preguntas para responder cada dia',
@@ -28,6 +40,7 @@ export default function BoxesContainer () {
   const { projectId } = useParams()
 
   const [actualCard, setCard] = useState({})
+
   const [open, setOpen] = useState(false)
 
   const getProject = async () => {
@@ -35,8 +48,8 @@ export default function BoxesContainer () {
       const config = HeaderConstructor()
 
       const response = await axios.get(`/project/${projectId}`, config)
-      console.log(response)
-      setProject(response.data.body.project)
+
+      dispatch(changeSelectedProject(response.data.body))
     } catch (e) {
       console.error('[Error en la llamada a getProject] ' + e)
     }
@@ -51,11 +64,31 @@ export default function BoxesContainer () {
       const config = HeaderConstructor()
       const response = await axios.get(`/random-card?projectId=${projectId}&box=${boxId}`, config)
 
+      console.log(response.data.body)
       setCard(response.data.body.card)
 
       setOpen(true)
     } catch (e) {
       console.error('[Error en la llamada a getCard] ' + e)
+    }
+  }
+
+  const handleAnswer = async () => {
+    try {
+      const config = HeaderConstructor()
+      const body = {
+        cardId: actualCard._id,
+        projectId,
+        isCorrect: true
+      }
+
+      const response = await axios.put('/move-card', body, config)
+
+      dispatch(changeSelectedProject(response.data.body))
+
+      handleClose()
+    } catch (e) {
+      console.error('[Error en la llamada a move-card] ' + e)
     }
   }
 
@@ -68,12 +101,14 @@ export default function BoxesContainer () {
       <Box className={styles.projectInfo}>
         <h2>Project: {actualProject.name ?? null}</h2>
         <h3>Tag: {actualProject.tag ? actualProject.tag.name : null}</h3>
+        <h3>Tarjetas en uso: {currentTotalCards}</h3>
+        <h3>Total de tarjetas: {totalCards}</h3>
       </Box>
       <section className={styles.boxContainer}>
         {actualProject.boxes
-          ? actualProject.boxes.map((v, i) => {
+          ? actualProject.boxes.map((b, i) => {
             return (
-              <CardBoardBox key={v._id} id={i} getCard={getCard} days={boxDays} open={open} disable={v.isEmpty} />
+              <CardBoardBox key={b._id} id={i} getCard={getCard} days={boxDays[i]} open={open} disable={b.isEmpty} />
             )
           })
           : null}
@@ -96,7 +131,7 @@ export default function BoxesContainer () {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Submit</Button>
+          <Button onClick={handleAnswer}>Submit</Button>
         </DialogActions>
       </Dialog>
     </Box>

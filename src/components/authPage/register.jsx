@@ -10,7 +10,7 @@ import { saveUser } from '../../redux/slices/userSlice.js'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 
 // Material UI imports
-import { CircularProgress } from '@mui/material'
+import { Button, CircularProgress } from '@mui/material'
 
 // ValidatorSchemas imports
 import { registerValidationSchema } from '../../utils/validationSchemas/register.js'
@@ -88,6 +88,10 @@ export default function Register () {
               <Field type='password' id='passwordConfirmation' name='passwordConfirmation' />
               <ErrorMessage name='passwordConfirmation' component={() => (<p className={styles.error}>{errors.passwordConfirmation}</p>)} />
             </div>
+
+            <Button onClick={() => navigate('/reset-password')}>
+              Forgot Password
+            </Button>
 
             {isSubmitting
               ? <div className={styles.progress}><CircularProgress /> </div>

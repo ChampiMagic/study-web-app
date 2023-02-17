@@ -5,7 +5,8 @@ const initialState = {
   projects: [],
   currentProjects: [],
   totalPages: 0,
-  filter: 'all'
+  filter: 'all',
+  selectedProject: {}
 }
 
 export const projectController = createSlice({
@@ -26,11 +27,35 @@ export const projectController = createSlice({
 
       state.totalPages = Math.ceil(state.currentProjects.length / 8)
     },
+    updateProject: (state, action) => {
+      state.projects = state.projects.map((p) => {
+        if (p._id === action.payload.project._id) {
+          p = action.payload.project
+        }
+        return p
+      })
+
+      state.currentProjects = state.currentProjects.map((p) => {
+        if (p._id === action.payload.project._id) {
+          p = action.payload.project
+        }
+        return p
+      })
+    },
     updateCurrentProjects: (state, action) => {
       const newProjects = action.payload.projects
 
       if (state.filter === 'all') state.currentProjects = newProjects
-      else state.currentProjects = newProjects.filter((p) => p.tag === state.filter)
+      else state.currentProjects = newProjects.filter((p) => p.tag.name === state.filter)
+
+      state.totalPages = Math.ceil(state.currentProjects.length / 8)
+    },
+    updateProjectsTags: (state, action) => {
+      const newProjects = action.payload.projects
+      state.projects = newProjects
+
+      if (state.filter === 'all') state.currentProjects = newProjects
+      else state.currentProjects = newProjects.filter((p) => p.tag.name === state.filter)
 
       state.totalPages = Math.ceil(state.currentProjects.length / 8)
     },
@@ -43,13 +68,16 @@ export const projectController = createSlice({
       state.filter = action.payload.tag
 
       if (state.filter === 'all') state.currentProjects = state.projects
-      else state.currentProjects = state.projects.filter((p) => p.tag === action.payload.tag)
+      else state.currentProjects = state.projects.filter((p) => p.tag.name === action.payload.tag)
 
       state.totalPages = Math.ceil(state.currentProjects.length / 8)
+    },
+    changeSelectedProject: (state, action) => {
+      state.selectedProject = action.payload.project
     }
   }
 })
 
-export const { newProjects, addProject, deleteProjects, updateCurrentProjects, filterProjects } = projectController.actions
+export const { newProjects, addProject, deleteProjects, updateCurrentProjects, filterProjects, updateProjectsTags, updateProject, changeSelectedProject } = projectController.actions
 
 export default projectController.reducer
