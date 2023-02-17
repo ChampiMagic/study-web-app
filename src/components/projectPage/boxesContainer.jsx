@@ -64,6 +64,7 @@ export default function BoxesContainer () {
       const config = HeaderConstructor()
       const response = await axios.get(`/random-card?projectId=${projectId}&box=${boxId}`, config)
 
+      console.log(response.data.body)
       setCard(response.data.body.card)
 
       setOpen(true)
@@ -93,7 +94,7 @@ export default function BoxesContainer () {
 
   useEffect(() => {
     getProject()
-  }, [actualProject])
+  }, [])
 
   return (
     <Box className={styles.high_container}>
@@ -105,9 +106,9 @@ export default function BoxesContainer () {
       </Box>
       <section className={styles.boxContainer}>
         {actualProject.boxes
-          ? actualProject.boxes.map((v, i) => {
+          ? actualProject.boxes.map((b, i) => {
             return (
-              <CardBoardBox key={v._id} id={i} getCard={getCard} days={boxDays[i]} open={open} disable={v.isEmpty} />
+              <CardBoardBox key={b._id} id={i} getCard={getCard} days={boxDays[i]} open={open} disable={b.isEmpty} />
             )
           })
           : null}

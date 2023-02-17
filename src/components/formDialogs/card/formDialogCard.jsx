@@ -21,6 +21,7 @@ import styles from './formDialogCard.module.css'
 import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { addCard } from '../../../redux/slices/cardSlice.js'
+import { changeSelectedProject } from '../../../redux/slices/projectSlice.js'
 
 export default function FormDialogProject () {
   // State used to render error messages from the backend
@@ -55,7 +56,7 @@ export default function FormDialogProject () {
       const response = await axios.post('/create-card', { ...values, projectId }, config)
 
       dispatch(addCard(response.data.body))
-      console.log(response)
+      dispatch(changeSelectedProject(response.data.body))
 
       handleClose()
     } catch (error) {
