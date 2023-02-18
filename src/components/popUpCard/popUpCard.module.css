@@ -1,0 +1,13 @@
+/* -el componente sera un pop-up que se utilizara para renderizar
+ la tarjeta random que le haya tocado al usuario
+
+El componente debe recibir por prop una "question"
+
+el componente debe contar con un pequeño formulario 
+en donde escribir su respuesta
+
+Al hacer submit el pop-up se cerrara 
+(todavía no existe lógica de validación) */
+.PopUpCard{
+    color: tomato;
+ }
