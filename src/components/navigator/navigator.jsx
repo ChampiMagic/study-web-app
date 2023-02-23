@@ -16,7 +16,7 @@ import styles from './navigator.module.css'
 
 export default function Navigator ({ type }) {
   return (
-    <AppBar position='static' className={styles.app_bar} sx={{ bgcolor: '#fcb440', display: 'flex', justifyContent: 'center' }}>
+    <AppBar position='static' className={styles.app_bar} sx={{ bgcolor: '#1C1C1C', display: 'flex', justifyContent: 'center' }}>
       <Toolbar>
         <div className={styles.left_container}>
           <TemporaryDrawer type={type} />

@@ -24,14 +24,22 @@ export default function ProjectFilter () {
   return (
 
     <Box sx={{ minWidth: 120, marginRight: '1em' }}>
-      <FormControl fullWidth>
-        <InputLabel id='simple-select-label'>Filter</InputLabel>
+      <FormControl fullWidth sx={{ borderColor: '#fafafa' }}>
+        <InputLabel
+          id='simple-select-label' sx={{
+            color: '#fafafa'
+          }}
+        >Filter
+        </InputLabel>
         <Select
           labelId='simple-select-label'
           id='simple-select'
           value={seletedTags}
           label='Filter'
           onChange={(e) => handleChange(e.target.value)}
+          sx={{
+            color: '#fafafa'
+          }}
         >
           <MenuItem key='all' value='all'>
             All

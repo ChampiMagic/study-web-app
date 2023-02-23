@@ -71,7 +71,7 @@ export default function ProjectsContainer () {
           })
           : null}
       </Box>
-      {!globalStateProject.currentProjects.length ? <h1 className={styles.notFound}>Not Found</h1> : null}
+      {!globalStateProject.currentProjects.length ? <h1 className={styles.notFound}>Let's create a new project!</h1> : null}
       <Stack spacing={2} className={styles.pagination_container}>
         <Pagination count={globalStateProject.totalPages} onChange={(e, p) => setActualPage(p)} variant='outlined' />
       </Stack>

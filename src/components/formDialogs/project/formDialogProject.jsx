@@ -70,11 +70,13 @@ export default function FormDialogProject () {
     <>
       <Button
         variant='outlined' onClick={handleClickOpen} sx={{
-          backgroundColor: '#fff',
-          color: '#52dedb',
+          backgroundColor: '#64CCDA',
+          color: '#FAFAFA',
           borderColor: '#52dedb',
           ':hover': {
             backgroundColor: '#fff',
+            color: '#1c1c1c',
+            borderColor: '#1c1c1c',
             boxShadow: '2px 1px 19px 2px rgba(255,255,255,1)'
           }
         }}
