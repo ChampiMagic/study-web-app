@@ -67,7 +67,18 @@ export default function FormDialogProject () {
 
   return (
     <>
-      <Button variant='outlined' color='primary' onClick={handleClickOpen}>
+      <Button
+        variant='outlined' sx={{
+          backgroundColor: '#64CCDA',
+          color: '#FAFAFA',
+          borderColor: '#52dedb',
+          ':hover': {
+            backgroundColor: '#fff',
+            color: '#1c1c1c',
+            borderColor: '#1c1c1c'
+          }
+        }} onClick={handleClickOpen}
+      >
         Create Card
       </Button>
       <Dialog

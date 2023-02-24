@@ -76,8 +76,7 @@ export default function FormDialogProject () {
           ':hover': {
             backgroundColor: '#fff',
             color: '#1c1c1c',
-            borderColor: '#1c1c1c',
-            boxShadow: '2px 1px 19px 2px rgba(255,255,255,1)'
+            borderColor: '#1c1c1c'
           }
         }}
       >
