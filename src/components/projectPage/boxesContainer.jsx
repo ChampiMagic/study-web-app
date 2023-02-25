@@ -90,7 +90,6 @@ export default function BoxesContainer () {
           })
           : null}
       </section>
-      {/* CHANGE THIS DIALOG FOR THE REA L ONE */}
       {actualCard.question
         ? <PopUpCard
             open={open}

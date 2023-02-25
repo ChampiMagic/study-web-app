@@ -1,5 +1,6 @@
 // React imports
 import * as React from 'react'
+
 // MUI imports
 import Button from '@mui/joy/Button'
 import Input from '@mui/joy/Input'
@@ -10,8 +11,9 @@ import Typography from '@mui/joy/Typography'
 // axios import
 import HeaderConstructor from '../../utils/constructors/headerConstructor'
 import axios from 'axios'
-import { changeSelectedProject } from '../../redux/slices/projectSlice'
 
+// redux import
+import { changeSelectedProject } from '../../redux/slices/projectSlice'
 import { useDispatch } from 'react-redux'
 
 export default function PopUpCard ({ open, setOpen, question, projectId, id }) {
