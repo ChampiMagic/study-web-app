@@ -9,9 +9,10 @@
     border-radius: 8px;
     border-width: 0.02rem;
     color: #134644;
-    padding: 3%;
+    padding: 2%;
     width: fit-content;
     text-align: center;
+    font-weight: bold;
 }
 
 .button_container {
