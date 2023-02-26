@@ -5,12 +5,12 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 // MUI imports
-import { Card, Typography, CardContent } from '@mui/material'
+import { Card, CardMedia, Typography, CardContent } from '@mui/material'
 
 // Css imports
 import styles from './projectCard.module.css'
 
-export default function ProjectCard ({ id, name, tag }) {
+export default function ProjectCard ({ id, name, tag, image }) {
   const navigate = useNavigate()
 
   const handleSubmit = (id) => {
@@ -23,7 +23,7 @@ export default function ProjectCard ({ id, name, tag }) {
         sx={{
           maxWidth: 250,
           height: 'auto',
-          boxShadow: '5px 5px 10px 2px #1C1C1C',
+          boxShadow: '0px 1px 3px #1C1C1C',
           transition: 'all 200ms ease',
           ':hover': {
             transform: 'scale(1.1)',
@@ -32,12 +32,18 @@ export default function ProjectCard ({ id, name, tag }) {
           }
         }} onClick={() => handleSubmit(id)}
       >
+        <CardMedia
+          sx={{ height: 100 }}
+          image={image}
+          title={name}
+          alt={name}
+        />
         <CardContent>
-          <Typography gutterBottom variant='h4' align='center' component='div' sx={{ height: 'auto', fontSize: 'xx-large' }}>
+          <Typography gutterBottom variant='h2' align='center' sx={{ height: 'auto', fontSize: 'x-large' }}>
             {name || 'Proyect Name'}
           </Typography>
           <div className={styles.tag_container}>
-            <h3 className={styles.tag}>{tag.name || 'Untagged'}</h3>
+            <p className={styles.tag}>{tag.name || 'Untagged'}</p>
           </div>
         </CardContent>
       </Card>
