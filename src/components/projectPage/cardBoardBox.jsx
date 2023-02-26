@@ -4,9 +4,9 @@ import * as React from 'react'
 // CSS imports
 import './cardBoardBox.css'
 
-export default function CardBoardBox ({ id, disable, days, getCard, open }) {
+export default function CardBoardBox ({ id, isEmpty, days, getCard, open }) {
   function ani (id) {
-    if (!disable) {
+    if (!isEmpty) {
       document.getElementById(id).className += ' classname'
       getCard(id)
     }
@@ -17,8 +17,9 @@ export default function CardBoardBox ({ id, disable, days, getCard, open }) {
   }, [open])
 
   return (
-    <article className='boxArticle'>
+    <article className={isEmpty ? 'boxArticleEmpty' : 'boxArticle'}>
       <h3>{days}</h3>
+      <p className='noQuestions'>{isEmpty ? 'No hay preguntas disponibles' : null}</p>
       <div className='box-89' onClick={() => ani(id)}>
         <div className='face-89 botton-89' />
         <div className='face-89 back-89' />
