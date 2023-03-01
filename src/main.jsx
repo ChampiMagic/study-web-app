@@ -19,7 +19,7 @@ import axios from 'axios'
 
 const persistor = persistStore(store)
 
-axios.defaults.baseURL = import.meta.env.VITE_DEV_API_URL || 'http://localhost:3000/api'
+axios.defaults.baseURL = import.meta.env.VITE_DEV_API_URL || 'http://192.168.43.123:5000/api'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>

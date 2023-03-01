@@ -17,6 +17,7 @@ import HeaderConstructor from '../../utils/constructors/headerConstructor'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { changeSelectedProject } from '../../redux/slices/projectSlice'
+import { verifyAnswer } from '../../lib/verifyAnswer'
 
 export default function BoxesContainer () {
   const actualProject = useSelector(state => state.projectController.selectedProject)
@@ -40,6 +41,8 @@ export default function BoxesContainer () {
   const { projectId } = useParams()
 
   const [actualCard, setCard] = useState({})
+
+  const [userAnswer, setUserAnswer] = useState('')
 
   const [open, setOpen] = useState(false)
 
@@ -76,14 +79,15 @@ export default function BoxesContainer () {
   const handleAnswer = async () => {
     try {
       const config = HeaderConstructor()
+      // verify if answer is correct
+      const isAnswerCorrect = await verifyAnswer(actualCard.question, userAnswer)
       const body = {
         cardId: actualCard._id,
         projectId,
-        isCorrect: true
+        isCorrect: isAnswerCorrect
       }
-
+      console.log(isAnswerCorrect)
       const response = await axios.put('/move-card', body, config)
-
       dispatch(changeSelectedProject(response.data.body))
 
       handleClose()
@@ -128,6 +132,8 @@ export default function BoxesContainer () {
             type='answer'
             fullWidth
             variant='standard'
+            value={userAnswer}
+            onChange={e => setUserAnswer(e.target.value)}
           />
         </DialogContent>
         <DialogActions>
