@@ -84,8 +84,17 @@ export default function BoxesContainer () {
       <section className={styles.boxContainer}>
         {actualProject.boxes
           ? actualProject.boxes.map((b, i) => {
+            const haveCards = b.cards.length !== 0
             return (
-              <CardBoardBox key={b._id} id={i} getCard={getCard} days={boxDays[i]} open={open} disable={b.isEmpty} />
+              <CardBoardBox
+                key={b._id}
+                id={i}
+                getCard={getCard}
+                days={boxDays[i]}
+                open={open}
+                isEmpty={b.isEmpty}
+                haveCards={haveCards}
+              />
             )
           })
           : null}
