@@ -1,7 +1,8 @@
 import { Configuration, OpenAIApi } from 'openai'
 const configuration = new Configuration({
-  apiKey: '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'
+  apiKey: import.meta.env.VITE_OPENAI_API_KEY
 })
+
 const openai = new OpenAIApi(configuration)
 
 export const verifyAnswer = async (question, answer) => {
@@ -12,7 +13,5 @@ export const verifyAnswer = async (question, answer) => {
     max_tokens: 7,
     temperature: 0
   })
-  console.log({ prompt })
-  console.log(response.data.choices[0].text)
   return response.data.choices[0].text.toLowerCase().includes('true')
 }

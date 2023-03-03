@@ -86,6 +86,7 @@ export default function BoxesContainer () {
         projectId,
         isCorrect: isAnswerCorrect
       }
+      // logic for is correct move card
       console.log(isAnswerCorrect)
       const response = await axios.put('/move-card', body, config)
       dispatch(changeSelectedProject(response.data.body))
