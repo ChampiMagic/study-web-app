@@ -3,10 +3,11 @@
 import React, { useState, useEffect } from 'react'
 
 // MUI imports
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material'
+import { Box } from '@mui/material'
 
 // Components imports
 import CardBoardBox from './cardBoardBox'
+import PopUpCard from '../popUpCard/popUpCard'
 
 // Style import
 import styles from './boxesContainer.module.css'
@@ -58,16 +59,11 @@ export default function BoxesContainer () {
     }
   }
 
-  const handleClose = () => {
-    setOpen(false)
-  }
-
   async function getCard (boxId) {
     try {
       const config = HeaderConstructor()
       const response = await axios.get(`/random-card?projectId=${projectId}&box=${boxId}`, config)
 
-      console.log(response.data.body)
       setCard(response.data.body.card)
 
       setOpen(true)
@@ -112,35 +108,30 @@ export default function BoxesContainer () {
       <section className={styles.boxContainer}>
         {actualProject.boxes
           ? actualProject.boxes.map((b, i) => {
+            const haveCards = b.cards.length !== 0
             return (
-              <CardBoardBox key={b._id} id={i} getCard={getCard} days={boxDays[i]} open={open} disable={b.isEmpty} />
+              <CardBoardBox
+                key={b._id}
+                id={i}
+                getCard={getCard}
+                days={boxDays[i]}
+                open={open}
+                isEmpty={b.isEmpty}
+                haveCards={haveCards}
+              />
             )
           })
           : null}
       </section>
-      {/* CHANGE THIS DIALOG FOR THE REAL ONE */}
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Question</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            {actualCard.question}
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin='dense'
-            id='name'
-            label='Answer'
-            type='answer'
-            fullWidth
-            variant='standard'
-            value={userAnswer}
-            onChange={e => setUserAnswer(e.target.value)}
+      {actualCard.question
+        ? <PopUpCard
+            open={open}
+            setOpen={setOpen}
+            question={actualCard.question}
+            projectId={projectId}
+            id={actualCard._id}
           />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleAnswer}>Submit</Button>
-        </DialogActions>
-      </Dialog>
+        : null}
     </Box>
   )
 }

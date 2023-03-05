@@ -4,13 +4,15 @@
 }
 
 .tag {
-    border-color: rgb(147, 144, 144);
-    border-style: solid;
+    background-color: rgb(140, 203, 226);
+    border-style: none;
     border-radius: 8px;
-    border-width: 0.1rem;
+    border-width: 0.02rem;
+    color: #134644;
     padding: 2%;
     width: fit-content;
     text-align: center;
+    font-weight: bold;
 }
 
 .button_container {
@@ -19,7 +21,8 @@
 }
 
 .button {
-    background-color: rgb(108, 108, 108);
+    border-style: none;
+    background-color: #1c1c1c;
     transition: all 500ms ease;
     margin-left: 0.4rem;
     padding: 2% 10%;
@@ -28,5 +31,6 @@
 .button:hover {
     background-color: transparent;
     color: black;
+    background-color: #c8c3c3;
     transition: all 500ms ease;
 }

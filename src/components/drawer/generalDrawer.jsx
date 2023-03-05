@@ -70,7 +70,11 @@ export default function fGeneralDrawer ({ type, handleTags, toggleDrawer }) {
     return (
       <>
         <ListItem disablePadding>
-          <ListItemButton onClick={handleTags} sx={{ fontSize: isMobile ? '.5em' : '3em' }}>
+          <ListItemButton
+            onClick={handleTags} sx={{
+              fontSize: isMobile ? '.5em' : '3em'
+            }}
+          >
             <ListItemIcon>
               <Bookmark sx={{ fontSize: isMobile ? '.5em' : '.7em' }} />
             </ListItemIcon>

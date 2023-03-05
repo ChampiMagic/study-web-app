@@ -1,18 +1,29 @@
-  
-.boxArticle {
+.boxArticleEmpty  {
+  opacity: 0.8;
+}
+
+.boxArticle, .boxArticleEmpty {
   display: flex;
   flex-direction: column;
   align-items: center;
   color: rgb(149, 110, 71);
 }
 
-.boxArticle > h3 {
+.boxArticle > h3, .boxArticleEmpty > h3 {
   text-align: center;
-  margin-bottom: 3rem;
   margin-right: 5rem;
   width: 250px;
 }
 
+.info {
+  font-weight: bold;
+  z-index: 1;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  margin-right: 1rem;
+  text-align: center;
+}
   
   /* BOX STYLES*/
   .box-89{
