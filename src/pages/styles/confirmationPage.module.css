@@ -1,0 +1,105 @@
+.high_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("../../assets/background.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom center, 50%, 50%;
+}
+
+.form_container {
+    width: 30em;
+	min-width: 20em;
+	background: rgb(255, 255, 255);
+	border: 1px solid rgb(198, 198, 198);
+	border-radius: 5px;
+	padding: 20px;
+	-webkit-box-shadow: 12px 18px 10px -1px rgba(0,0,0,0.75);
+	-moz-box-shadow: 12px 18px 10px -1px rgba(0,0,0,0.75);
+	box-shadow: 12px 18px 10px -1px rgba(0,0,0,0.75); 
+}
+
+.form {
+	width: 100%;
+}
+
+.form > div {
+	margin-bottom: 20px;
+}
+
+.form label {
+	display: block;
+	font-weight: 600;
+	font-size: 14px;
+	margin-bottom: 5px;
+	color: #1f1f1f;
+}
+
+.form input,
+.form textarea {
+	font-family: 'Open Sans', sans-serif;
+	width: 100%;
+	border-radius: 5px;
+	border: 2px solid #e2e2e2;
+	font-size: 18px;
+	padding: 10px;
+	margin-bottom: 5px;
+	color: #000
+}
+
+.form input:focus {
+	outline: none;
+}
+
+.form .error {
+	color: #e92b2d;
+	font-weight: 600;
+	font-size: 12px;
+}
+
+.form button[type="submit"] {
+	display: block;
+	background: #0085FF;
+	font-weight: 600;
+	font-family: 'Open Sans', sans-serif;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+	padding: 10px;
+	border-radius: 5px;
+	color: #fff;
+	font-size: 16px;
+	transition: .3s ease all;
+}
+
+.form button[type="submit"]:hover {
+	background: #0051ff;
+}
+
+.form .exito {
+	text-align: center;
+	font-size: 14px;
+	padding-top: 20px;
+	color: #02a802;
+}
+
+.form .progress {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.form .statusError {
+	color: #e92b2d;
+	font-weight: 600;
+	font-size: 24px;
+	margin-top: 1em;
+	text-align: center;
+}
+
+.logo {
+	width: 100%;
+}
