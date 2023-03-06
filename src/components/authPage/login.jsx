@@ -52,6 +52,7 @@ export default function Login () {
 
       navigate('/home')
     } catch (error) {
+      if (error.response.status === 301) navigate('/email-confirmation/false')
       if (error.response) setStatusMessage(error.response.data.message)
       else setStatusMessage(error.message)
     }

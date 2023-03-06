@@ -2,9 +2,7 @@
 import React, { useState } from 'react'
 
 // Redux imports
-import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { saveUser } from '../../redux/slices/userSlice.js'
 
 // Formik imports
 import { ErrorMessage, Field, Form, Formik } from 'formik'
@@ -28,9 +26,6 @@ export default function Register () {
   // Used to redirect the user
   const navigate = useNavigate()
 
-  // Used to make changes to a global state
-  const dispatch = useDispatch()
-
   // Formik form initial values
   const initialValues = {
     username: '',
@@ -45,14 +40,9 @@ export default function Register () {
     try {
       const response = await axios.post('/register', { username: values.username, password: values.password, email: values.email })
 
-      // eslint-disable-next-line no-undef
-      localStorage.setItem('token', response.data.body.token)
-
-      dispatch(saveUser(response.data.body.user))
-
       reset()
 
-      navigate('/home')
+      setStatusMessage(response.data.message)
     } catch (error) {
       if (error.response) setStatusMessage(error.response.data.message)
       else setStatusMessage(error.message)
