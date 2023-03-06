@@ -42,6 +42,7 @@ export default function BoxesContainer () {
 
   const [actualCard, setCard] = useState({})
 
+  const [timer, setTimer] = useState(0)
   const [open, setOpen] = useState(false)
 
   const getProject = async () => {
@@ -69,6 +70,16 @@ export default function BoxesContainer () {
     }
   }
 
+  const dateCard = new Date(actualCard.movedOn)
+  let newTimer = Math.abs(dateCard.getSeconds() - new Date().getSeconds())
+
+  setTimeout(() => {
+    actualCard ?? console.log(actualCard.movedOn)
+    // console.log(newTimer)
+    // setTimer(newTimer)
+    newTimer--
+  }, 1000)
+
   useEffect(() => {
     getProject()
   }, [])
@@ -92,6 +103,7 @@ export default function BoxesContainer () {
                 getCard={getCard}
                 days={boxDays[i]}
                 open={open}
+                timer={timer}
                 isEmpty={b.isEmpty}
                 haveCards={haveCards}
               />
@@ -103,9 +115,8 @@ export default function BoxesContainer () {
         ? <PopUpCard
             open={open}
             setOpen={setOpen}
-            question={actualCard.question}
+            card={actualCard}
             projectId={projectId}
-            id={actualCard._id}
           />
         : null}
     </Box>

@@ -4,7 +4,7 @@ import * as React from 'react'
 // CSS imports
 import './cardBoardBox.css'
 
-export default function CardBoardBox ({ id, isEmpty, days, getCard, open, haveCards }) {
+export default function CardBoardBox ({ id, isEmpty, days, getCard, timer, open, haveCards }) {
   function ani (id) {
     if (!isEmpty) {
       document.getElementById(id).className += ' classname'
@@ -19,7 +19,7 @@ export default function CardBoardBox ({ id, isEmpty, days, getCard, open, haveCa
   return (
     <article className={isEmpty ? 'boxArticleEmpty' : 'boxArticle'}>
       <h3>{days}</h3>
-      {haveCards && isEmpty ? (<p className='info'>No hay preguntas disponibles por el momento</p>) : null}
+      {haveCards && isEmpty ? (<article><p className='info'>No hay preguntas disponibles por el momento.</p><p className='info'>{`Tiempo restante: ${timer} seg`}</p></article>) : null}
       {!haveCards && isEmpty ? (<p className='info'>No hay preguntas en esta caja</p>) : null}
       {!isEmpty && (<p className='info'>Preguntas disponibles</p>)}
       <p className='info'>{(isEmpty)}</p>

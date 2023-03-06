@@ -16,9 +16,8 @@ import axios from 'axios'
 import { changeSelectedProject } from '../../redux/slices/projectSlice'
 import { useDispatch } from 'react-redux'
 
-export default function PopUpCard ({ open, setOpen, question, projectId, id }) {
+export default function PopUpCard ({ open, setOpen, card, projectId }) {
   const dispatch = useDispatch()
-
   const handleClose = () => {
     setOpen(false)
   }
@@ -28,7 +27,7 @@ export default function PopUpCard ({ open, setOpen, question, projectId, id }) {
       setOpen(false)
       const config = HeaderConstructor()
       const body = {
-        cardId: id,
+        cardId: card._id,
         projectId,
         isCorrect: true
       }
@@ -73,7 +72,7 @@ export default function PopUpCard ({ open, setOpen, question, projectId, id }) {
             style={{ wordWrap: 'break-word' }}
           >
             {/* En esta parte se muestra la pregunta que pasamos por prop */}
-            {question}
+            {card.question}
           </Typography>
 
           <Input
