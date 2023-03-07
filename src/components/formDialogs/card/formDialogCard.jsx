@@ -43,6 +43,7 @@ export default function FormDialogProject () {
 
   function handleClose () {
     setOpen(false)
+    setStatusMessage('')
   }
 
   function handleClickOpen () {
@@ -52,7 +53,16 @@ export default function FormDialogProject () {
   const handleSubmit = async (values, resetForm) => {
     try {
       const config = HeaderConstructor()
+      const regexForReplace = /^¿(.*)\?$/
+      const questionRegexForValidate = /^¿.*\?$/
 
+      if (!questionRegexForValidate.test(values.question)) {
+        setStatusMessage('No has escrito bien la pregunta')
+        return null
+      }
+
+      const question = values.question.replace(regexForReplace, '$1')
+      values.question = question
       const response = await axios.post('/create-card', { ...values, projectId }, config)
 
       dispatch(addCard(response.data.body))
