@@ -86,14 +86,8 @@ export default function BoxesContainer () {
         {actualProject.boxes
           ? actualProject.boxes.map((b, i) => {
             const haveCards = b.cards.length !== 0
-            console.log(`cartas de la caja ${i}:`, b.cards)
             return (
               <div key={i}>
-                {(haveCards && b.isEmpty) && (<Timer
-                  key={i}
-                  deadTime={b.cards[0]?.movedOn || null}
-                  getProject={getProject}
-                                              />)}
                 {haveCards && b.isEmpty ? (<article><p className={styles.info}>No hay preguntas disponibles por el momento.</p></article>) : null}
                 {!haveCards && b.isEmpty ? (<p className={styles.info}>No hay preguntas en esta caja</p>) : null}
                 {!b.isEmpty && (<p className={styles.info}>Preguntas disponibles</p>)}
@@ -105,6 +99,11 @@ export default function BoxesContainer () {
                   open={open}
                   isEmpty={b.isEmpty}
                 />
+                {(haveCards && b.isEmpty) && (<Timer
+                  key={i}
+                  deadTime={b.cards[0]?.movedOn || null}
+                  getProject={getProject}
+                                              />)}
               </div>
             )
           })

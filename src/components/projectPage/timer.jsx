@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react'
 import styles from './timer.module.css'
 
 const Timer = ({ deadTime, getProject }) => {
-  console.log('deadtime: ', deadTime)
   if (!deadTime) {
     return null
   }
@@ -36,7 +35,7 @@ const Timer = ({ deadTime, getProject }) => {
   }, [])
 
   return (
-    <div>
+    <div className={styles.container}>
       <p className={styles.dayState}>Faltan {days} dias con {hours}:{minutes}:{seconds}</p>
     </div>
   )
