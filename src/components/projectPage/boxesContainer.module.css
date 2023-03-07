@@ -23,6 +23,17 @@
     margin-top: 3em;
 }
 
+.info {
+    font-weight: bold;
+    z-index: 1;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-right: 1rem;
+    text-align: center;
+    color: rgb(149, 110, 71);
+  }
+
 .boxContainer {
    width: 100%;
    display: flex;

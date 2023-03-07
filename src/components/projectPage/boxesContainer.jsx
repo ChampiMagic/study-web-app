@@ -8,6 +8,7 @@ import { Box } from '@mui/material'
 // Components imports
 import CardBoardBox from './cardBoardBox'
 import PopUpCard from '../popUpCard/popUpCard'
+import Timer from './timer'
 
 // Style import
 import styles from './boxesContainer.module.css'
@@ -42,7 +43,6 @@ export default function BoxesContainer () {
 
   const [actualCard, setCard] = useState({})
 
-  const [timer, setTimer] = useState(0)
   const [open, setOpen] = useState(false)
 
   const getProject = async () => {
@@ -70,16 +70,6 @@ export default function BoxesContainer () {
     }
   }
 
-  const dateCard = new Date(actualCard.movedOn)
-  let newTimer = Math.abs(dateCard.getSeconds() - new Date().getSeconds())
-
-  setTimeout(() => {
-    actualCard ?? console.log(actualCard.movedOn)
-    // console.log(newTimer)
-    // setTimer(newTimer)
-    newTimer--
-  }, 1000)
-
   useEffect(() => {
     getProject()
   }, [])
@@ -96,22 +86,31 @@ export default function BoxesContainer () {
         {actualProject.boxes
           ? actualProject.boxes.map((b, i) => {
             const haveCards = b.cards.length !== 0
+            console.log(`cartas de la caja ${i}:`, b.cards)
             return (
-              <CardBoardBox
-                key={b._id}
-                id={i}
-                getCard={getCard}
-                days={boxDays[i]}
-                open={open}
-                timer={timer}
-                isEmpty={b.isEmpty}
-                haveCards={haveCards}
-              />
+              <div key={i}>
+                {(haveCards && b.isEmpty) && (<Timer
+                  key={i}
+                  deadTime={b.cards[0]?.movedOn || null}
+                  getProject={getProject}
+                                              />)}
+                {haveCards && b.isEmpty ? (<article><p className={styles.info}>No hay preguntas disponibles por el momento.</p></article>) : null}
+                {!haveCards && b.isEmpty ? (<p className={styles.info}>No hay preguntas en esta caja</p>) : null}
+                {!b.isEmpty && (<p className={styles.info}>Preguntas disponibles</p>)}
+                <CardBoardBox
+                  key={b._id}
+                  id={i}
+                  getCard={getCard}
+                  days={boxDays[i]}
+                  open={open}
+                  isEmpty={b.isEmpty}
+                />
+              </div>
             )
           })
           : null}
       </section>
-      {actualCard.question
+      {(actualCard && actualCard.question)
         ? <PopUpCard
             open={open}
             setOpen={setOpen}
