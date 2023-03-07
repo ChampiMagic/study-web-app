@@ -16,24 +16,32 @@ import axios from 'axios'
 import { changeSelectedProject } from '../../redux/slices/projectSlice'
 import { useDispatch } from 'react-redux'
 
-export default function PopUpCard ({ open, setOpen, card, projectId }) {
+// Hooks imports
+import { verifyAnswer } from '../../lib/verifyAnswer'
+
+export default function PopUpCard ({ open, setOpen, question, projectId, id }) {
   const dispatch = useDispatch()
+
+  const [userAnswer, setUserAnswer] = React.useState('')
+
   const handleClose = () => {
     setOpen(false)
   }
 
-  const handleSubmit = async () => {
+  const handleAnswer = async () => {
     try {
-      setOpen(false)
       const config = HeaderConstructor()
+      // verify if answer is correct
+      const isAnswerCorrect = await verifyAnswer(question, userAnswer)
+
       const body = {
         cardId: card._id,
         projectId,
-        isCorrect: true
+        isCorrect: isAnswerCorrect
       }
-
+      // logic for is correct move card
+      console.log(isAnswerCorrect)
       const response = await axios.put('/move-card', body, config)
-
       dispatch(changeSelectedProject(response.data.body))
 
       handleClose()
@@ -63,7 +71,7 @@ export default function PopUpCard ({ open, setOpen, card, projectId }) {
         </Typography>
         <form
           onSubmit={() => {
-            handleSubmit()
+            handleAnswer()
           }}
         >
           <Typography
@@ -79,6 +87,7 @@ export default function PopUpCard ({ open, setOpen, card, projectId }) {
             aria-label='empty textarea'
             placeholder='Tu respuesta es'
             style={{ minWidth: 300 }}
+            onChange={(event) => setUserAnswer(event.target.value)}
           />
           <br />
           <Button

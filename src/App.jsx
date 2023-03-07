@@ -10,6 +10,7 @@ import ProjectPage from './pages/projectPage.jsx'
 import ProfilePage from './pages/profilePage.jsx'
 import CardsPage from './pages/cardsPage.jsx'
 import ResetPasswordPage from './pages/resetPasswordPage.jsx'
+import ConfirmationPage from './pages/confirmationPage.jsx'
 
 // Css imports
 import './index.css'
@@ -35,9 +36,12 @@ export default function App () {
         {/* If not page found, we redirect to the 404 page */}
         <Route path='*' element={<NotFoundPage />} />
 
-        {/* Forgot Password Page */}
+        {/* Forgot Password Pages */}
         <Route path='/reset-password' element={<ResetPasswordPage />} />
         <Route path='/reset-password/:token' element={<ResetPasswordPage />} />
+
+        {/* Email Confirmation Pages */}
+        <Route path='/email-confirmation/:error' element={<ConfirmationPage />} />
       </Routes>
     </>
   )
