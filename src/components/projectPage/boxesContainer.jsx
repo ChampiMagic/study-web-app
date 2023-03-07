@@ -8,6 +8,7 @@ import { Box } from '@mui/material'
 // Components imports
 import CardBoardBox from './cardBoardBox'
 import PopUpCard from '../popUpCard/popUpCard'
+import Timer from './timer'
 
 // Style import
 import styles from './boxesContainer.module.css'
@@ -86,26 +87,34 @@ export default function BoxesContainer () {
           ? actualProject.boxes.map((b, i) => {
             const haveCards = b.cards.length !== 0
             return (
-              <CardBoardBox
-                key={b._id}
-                id={i}
-                getCard={getCard}
-                days={boxDays[i]}
-                open={open}
-                isEmpty={b.isEmpty}
-                haveCards={haveCards}
-              />
+              <div key={i}>
+                {haveCards && b.isEmpty ? (<article><p className={styles.info}>No hay preguntas disponibles por el momento.</p></article>) : null}
+                {!haveCards && b.isEmpty ? (<p className={styles.info}>No hay preguntas en esta caja</p>) : null}
+                {!b.isEmpty && (<p className={styles.info}>Preguntas disponibles</p>)}
+                <CardBoardBox
+                  key={b._id}
+                  id={i}
+                  getCard={getCard}
+                  days={boxDays[i]}
+                  open={open}
+                  isEmpty={b.isEmpty}
+                />
+                {(haveCards && b.isEmpty) && (<Timer
+                  key={i}
+                  deadTime={b.cards[0]?.movedOn || null}
+                  getProject={getProject}
+                                              />)}
+              </div>
             )
           })
           : null}
       </section>
-      {actualCard.question
+      {(actualCard && actualCard.question)
         ? <PopUpCard
             open={open}
             setOpen={setOpen}
-            question={actualCard.question}
+            card={actualCard}
             projectId={projectId}
-            id={actualCard._id}
           />
         : null}
     </Box>

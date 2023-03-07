@@ -38,13 +38,20 @@ export default function TemporaryDrawer ({ type }) {
         sx={{ mr: 3 }}
         onClick={toggleDrawer(true)}
       >
-        <MenuIcon sx={{ color: '#fff' }} />
+        <MenuIcon sx={{
+          transform: 'scale(1.5)',
+          path: {
+            color: '#fff'
+          }
+        }}
+        />
       </IconButton>
 
       <Drawer
         anchor='left'
         open={isOpen}
         onClose={toggleDrawer(false)}
+        sx={{}}
       >
         {inTag ? <TagDrawer handleTags={handleTags} /> : <GeneralDrawer type={type} handleTags={handleTags} toggleDrawer={toggleDrawer} />}
       </Drawer>

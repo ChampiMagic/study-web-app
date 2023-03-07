@@ -12,18 +12,16 @@
 
 .mid_container {
     display: flex;
+    margin-top: 2rem;
+    margin: 0 20%;
+    justify-content: center;
     padding: 2.5em;
-}
-
-.mid_container > img {
-    width: 20em;
-    height: 20em;
-    border: 1px solid black ;
+    align-items: center;
 }
 
 .content_container {
   color: #000;  
-  margin-left: 2em;
+  margin-left: 50rem;
   letter-spacing: .2em;
   font-size: 1em;
 }
@@ -32,7 +30,9 @@
     margin-top: 4em;
   }
 
-.low_container{
+.low_container {
+    margin: 0 40%;
+    margin-top: 5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -46,5 +46,4 @@
     align-items: center;
     width: 10em;
     height: 10em;
-    border: 1px solid black ;
 }

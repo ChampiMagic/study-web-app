@@ -21,7 +21,7 @@ export default function ProjectCard ({ id, name, tag, image }) {
     <>
       <Card
         sx={{
-          maxWidth: 250,
+          width: 350,
           height: 'auto',
           boxShadow: '0px 1px 3px #1C1C1C',
           transition: 'all 200ms ease',

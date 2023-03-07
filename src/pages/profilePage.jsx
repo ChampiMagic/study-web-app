@@ -12,6 +12,8 @@ import { useSelector } from 'react-redux'
 import styles from './styles/profilePage.module.css'
 import { useNavigate } from 'react-router-dom'
 
+import Avatar from '@mui/material/Avatar'
+
 export default function ProfilePage () {
   const user = useSelector((state) => state.userController.user)
   const projects = useSelector((state) => state.projectController.projects)
@@ -26,7 +28,11 @@ export default function ProfilePage () {
         <ArrowBack style={{ fontSize: '3em' }} />
       </IconButton>
       <div className={styles.mid_container}>
-        <img src={user.avatar ?? avatarUrl} alt={user.username} />
+        <Avatar
+          src={user.avatar ?? avatarUrl} alt={user.username} sx={{
+            transform: 'scale(6)'
+          }}
+        />
         <div className={styles.content_container}>
           <h3>Username: </h3> <p>{user.username}</p>
           <h3>Email: </h3> <p>{user.email}</p>

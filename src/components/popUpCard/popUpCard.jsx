@@ -35,7 +35,7 @@ export default function PopUpCard ({ open, setOpen, question, projectId, id }) {
       const isAnswerCorrect = await verifyAnswer(question, userAnswer)
 
       const body = {
-        cardId: id,
+        cardId: card._id,
         projectId,
         isCorrect: isAnswerCorrect
       }
@@ -80,7 +80,7 @@ export default function PopUpCard ({ open, setOpen, question, projectId, id }) {
             style={{ wordWrap: 'break-word' }}
           >
             {/* En esta parte se muestra la pregunta que pasamos por prop */}
-            {question}
+            {card.question}
           </Typography>
 
           <Input

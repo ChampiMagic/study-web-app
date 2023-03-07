@@ -11,14 +11,14 @@
 
 .boxArticle > h3, .boxArticleEmpty > h3 {
   text-align: center;
-  margin-right: 5rem;
+  font-size: 1.4rem;
   width: 250px;
 }
 
 .info {
   font-weight: bold;
   z-index: 1;
-  font-size: 1rem;
+  font-size: 1.3rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   margin-right: 1rem;
@@ -30,8 +30,9 @@
     position: relative;
     width: var(--size);
     height: var(--size);
+    margin-left: 4rem;
     transform-style: preserve-3d;
-    transform:rotatex(345deg) rotateY(216deg);
+    transform:rotatex(345deg) rotateY(325deg);
     z-index: 0;
   }
   .face-89{
@@ -274,8 +275,8 @@
     height: calc(var(--icon-size) * 2);
     width: calc(var(--icon-size) * 2);
     position: absolute;
-    bottom: 3px;
-    right: 3px;
+    bottom: 6px;
+    right: 20px;
   }
   .label-89{
     height: calc(var(--icon-size) * 1.5);
