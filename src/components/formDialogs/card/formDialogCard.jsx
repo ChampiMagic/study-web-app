@@ -54,12 +54,6 @@ export default function FormDialogProject () {
     try {
       const config = HeaderConstructor()
       const regexForReplace = /^¿(.*)\?$/
-      const questionRegexForValidate = /^¿.*\?$/
-
-      if (!questionRegexForValidate.test(values.question)) {
-        setStatusMessage('No has escrito bien la pregunta')
-        return null
-      }
 
       const question = values.question.replace(regexForReplace, '$1')
       values.question = question
