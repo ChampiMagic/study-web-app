@@ -23,6 +23,7 @@ export default function PopUpCard ({ open, setOpen, card, projectId }) {
   const dispatch = useDispatch()
 
   const [userAnswer, setUserAnswer] = React.useState('')
+  const [statusMessage, setStatusMessage] = React.useState('')
 
   const handleClose = () => {
     setOpen(false)
@@ -32,18 +33,24 @@ export default function PopUpCard ({ open, setOpen, card, projectId }) {
     try {
       const config = HeaderConstructor()
       // verify if answer is correct
-      const isAnswerCorrect = await verifyAnswer(card.question, userAnswer)
+      const { isCorrect, errorMessage } = await verifyAnswer(card.question, userAnswer, config)
+
+      if (errorMessage) {
+        setStatusMessage(errorMessage)
+        return
+      }
 
       const body = {
         cardId: card._id,
         projectId,
-        isCorrect: isAnswerCorrect
+        isCorrect
       }
+      console.log('pase')
       // logic for is correct move card
-      console.log(isAnswerCorrect)
       const response = await axios.put('/move-card', body, config)
       dispatch(changeSelectedProject(response.data.body))
 
+      setStatusMessage('')
       handleClose()
     } catch (e) {
       console.error('[Error en la llamada a move-card] ' + e)
@@ -70,7 +77,8 @@ export default function PopUpCard ({ open, setOpen, card, projectId }) {
           La pregunta de hoy es:
         </Typography>
         <form
-          onSubmit={() => {
+          onSubmit={(e) => {
+            e.preventDefault()
             handleAnswer()
           }}
         >
@@ -89,6 +97,7 @@ export default function PopUpCard ({ open, setOpen, card, projectId }) {
             style={{ minWidth: 300 }}
             onChange={(event) => setUserAnswer(event.target.value)}
           />
+          {statusMessage && <p>{statusMessage}</p>}
           <br />
           <Button
             variant='outlined' color='primary' type='submit' sx={{
