@@ -19,7 +19,7 @@ import { useDispatch } from 'react-redux'
 // Hooks imports
 import { verifyAnswer } from '../../lib/verifyAnswer'
 
-export default function PopUpCard ({ open, setOpen, question, projectId, id }) {
+export default function PopUpCard ({ open, setOpen, card, projectId }) {
   const dispatch = useDispatch()
 
   const [userAnswer, setUserAnswer] = React.useState('')
@@ -32,7 +32,7 @@ export default function PopUpCard ({ open, setOpen, question, projectId, id }) {
     try {
       const config = HeaderConstructor()
       // verify if answer is correct
-      const isAnswerCorrect = await verifyAnswer(question, userAnswer)
+      const isAnswerCorrect = await verifyAnswer(card.question, userAnswer)
 
       const body = {
         cardId: card._id,
