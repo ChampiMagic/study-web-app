@@ -8,6 +8,11 @@ import ClearIcon from '@mui/icons-material/Clear'
 
 // axios import
 import axios from 'axios'
+import HeaderConstructor from '../../utils/constructors/headerConstructor.js'
+import { useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+// redux imports
+import { newCards } from '../../redux/slices/cardSlice'
 
 export default function QuestionCard ({ id, answer, question }) {
   const [flip, setFlip] = useState(false)
@@ -15,12 +20,17 @@ export default function QuestionCard ({ id, answer, question }) {
     setFlip(!flip)
   }
 
+  const { projectId } = useParams()
+
+  const dispatch = useDispatch()
   const handleDelete = async () => {
     try {
-      await axios.delete('/delete-card', id)
-      return (null)
-    } catch (error) {
-      console.error('erro al eliminar la carta')
+      const config = HeaderConstructor()
+
+      const response = await axios.delete(`/delete-card?projectId=${projectId}&cardId=${id}`, config)
+      dispatch(newCards(response.data.body))
+    } catch (e) {
+      console.error('[Error en la llamada a deleteCard] ' + e)
     }
   }
 
