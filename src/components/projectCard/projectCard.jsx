@@ -37,6 +37,7 @@ export default function ProjectCard ({ id, name, tag, image }) {
           image={image}
           title={name}
           alt={name}
+          component='article'
         />
         <CardContent>
           <Typography gutterBottom variant='h2' align='center' sx={{ height: 'auto', fontSize: 'x-large' }}>
