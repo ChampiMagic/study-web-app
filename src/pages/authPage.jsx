@@ -13,7 +13,7 @@ import styles from './styles/authPage.module.css'
 
 export default function AuthPage () {
   // We use this to toggle form rendering (between Login and Register)
-  const [switcher, setSwitcher] = useState(false)
+  const [switcher, setSwitcher] = useState(true)
 
   const handleSwitch = () => {
     setSwitcher(!switcher)

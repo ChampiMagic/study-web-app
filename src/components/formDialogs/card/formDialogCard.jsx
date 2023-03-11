@@ -53,10 +53,11 @@ export default function FormDialogProject () {
   const handleSubmit = async (values, resetForm) => {
     try {
       const config = HeaderConstructor()
-      const regexForReplace = /^¿(.*)\?$/
+      const regexForReplace = /[^\w +-/*]/g
 
-      const question = values.question.replace(regexForReplace, '$1')
+      const question = values.question.replace(regexForReplace, '')
       values.question = question
+
       const response = await axios.post('/create-card', { ...values, projectId }, config)
 
       dispatch(addCard(response.data.body))
