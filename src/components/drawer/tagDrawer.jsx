@@ -80,7 +80,11 @@ export default function TagDrawer ({ handleTags }) {
 
   return (
     <Box
-      sx={{ width: isMobile ? 230 : 330, height: '100vh' }}
+      sx={{
+        width: isMobile ? 230 : 330,
+        height: '100vh',
+        overflowX: 'hidden'
+      }}
       role='presentation'
     >
       <Box className={styles.back_btn}>
