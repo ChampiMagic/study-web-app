@@ -56,7 +56,7 @@ export default function QuestionCard ({ id, answer, question }) {
         />
         <CardContent>
           <Typography variant='h5' component='p'>
-            {!flip ? question : answer}
+            {!flip ? `¿${question}?` : answer}
           </Typography>
         </CardContent>
         <Button

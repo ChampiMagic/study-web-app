@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-export const verifyAnswer = async (question, answer, config) => {
+export const verifyAnswer = async (answer1, answer2, config) => {
   try {
-    const response = await axios.get(`/verify-card?question=${question}&answer=${answer}`, config)
+    const response = await axios.get(`/verify-card?answer1=${answer1}&answer2=${answer2}`, config)
 
     const isCorrect = response.data.body.isCorrect
 

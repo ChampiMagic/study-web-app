@@ -11,3 +11,8 @@ Al hacer submit el pop-up se cerrara
 .PopUpCard{
     color: tomato;
  }
+
+ .formQuestion {
+    width: auto;
+    overflow: auto;
+ }

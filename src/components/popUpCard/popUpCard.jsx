@@ -19,6 +19,8 @@ import { useDispatch } from 'react-redux'
 // Hooks imports
 import { verifyAnswer } from '../../lib/verifyAnswer'
 
+import styles from './popUpCard.module.css'
+
 export default function PopUpCard ({ open, setOpen, card, projectId }) {
   const dispatch = useDispatch()
 
@@ -33,7 +35,7 @@ export default function PopUpCard ({ open, setOpen, card, projectId }) {
     try {
       const config = HeaderConstructor()
       // verify if answer is correct
-      const { isCorrect, errorMessage } = await verifyAnswer(card.question, userAnswer, config)
+      const { isCorrect, errorMessage } = await verifyAnswer(card.answer, userAnswer, config)
 
       if (errorMessage) {
         setStatusMessage(errorMessage)
@@ -81,10 +83,12 @@ export default function PopUpCard ({ open, setOpen, card, projectId }) {
             e.preventDefault()
             handleAnswer()
           }}
+          className={styles.formQuestion}
         >
           <Typography
             component='h2'
             align='center'
+            fontSize='large'
             style={{ wordWrap: 'break-word' }}
           >
             {/* En esta parte se muestra la pregunta que pasamos por prop */}
