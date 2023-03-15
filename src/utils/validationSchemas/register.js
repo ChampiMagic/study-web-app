@@ -2,10 +2,13 @@ import * as yup from 'yup'
 
 // Validation scheme used by Formik
 
+const usernameRegex = /^[0-9A-Za-z]*$/
+
 export const registerValidationSchema = yup.object().shape({
   username: yup
     .string()
-    .required('Username is requiered'),
+    .required('Username is requiered')
+    .matches(usernameRegex, 'username not valid'),
   email: yup
     .string()
     .email('Please insert a valid email')
